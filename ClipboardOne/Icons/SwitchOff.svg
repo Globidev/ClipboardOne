@@ -1,0 +1,12 @@
+<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <rect ry="50" rx="50" height="250" width="500" y="124.138" x="70.6896" stroke-width="5" stroke="#140404" fill="#000000" id="svg_1"/>
+  <rect ry="50" rx="50" height="190" width="215" y="154.138" x="105.69" stroke-width="5" stroke="#ffffff" fill="#ffffff" id="svg_2"/>
+  <text xml:space="preserve" y="261.6056" x="212.8553" transform="matrix(11.833 0 0 3.80604 -2376.56 -753.656)" text-anchor="middle" stroke-width="0" stroke="#ffffff" fill="#000000" font-size="24" font-family="serif" id="svg_5"/>
+  <text xml:space="preserve" y="252.1228" x="203.3725" transform="matrix(24.3174 0 0 8.48277 -4589.86 -1731.93)" text-anchor="middle" stroke-width="0" stroke="#140404" fill="#000000" font-size="24" font-family="serif" id="svg_6"/>
+  <text xml:space="preserve" y="254.4805" x="204.195" transform="matrix(24.3174 0 0 8.48277 -4589.86 -1731.93)" text-anchor="middle" stroke-width="0" stroke="#140404" fill="#000000" font-size="24" font-family="serif" id="svg_7"/>
+  <text xml:space="preserve" y="211.3602" x="87.498" transform="matrix(4.96783 0 0 4.02428 -224.36 -561.804)" text-anchor="middle" stroke-width="0" stroke="#ffffff" fill="#000000" font-weight="bold" font-size="32" font-family="Monospace" id="svg_3">0</text>
+  <text xml:space="preserve" y="278.5753" x="447.2747" transform="matrix(4.15837 0 0 3.99885 -1433.29 -824.174)" text-anchor="middle" stroke-width="0" stroke="#ffffff" fill="#ffffff" style="cursor: move; pointer-events: inherit;" font-weight="bold" font-size="32" font-family="Cursive" id="svg_4">1</text>
+ </g>
+</svg>
