@@ -114,4 +114,32 @@ typename std::enable_if< // Worker must inherit QObject and be a pointer
     synchronousLoop.exec();
 
     return worker;
-} 
+}
+
+// Type traits
+
+template<class Type>
+class is_singleton
+{
+    template <
+        class T,
+        // This checks that <Type> has in fact a member called "instance"
+        // and also deduce its return type
+        class InstanceReturnType = decltype(T::instance())
+    >
+    static typename std::enable_if<
+        // Checks that the return type of "instance" is in fact <Type &>
+        std::is_same<InstanceReturnType, T &>::value,
+        std::true_type
+    >::type hasInstance(void *);
+
+    // Fallback function, substituted if there is no member "instance" for <Type>
+    // with the correct return type
+    template <class T>
+    static std::false_type hasInstance(...);
+
+    typedef decltype(hasInstance<Type>(nullptr)) HasInstance;
+
+    public :
+        Constant value = HasInstance::value;
+};
