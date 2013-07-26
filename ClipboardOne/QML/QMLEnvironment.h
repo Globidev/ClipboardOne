@@ -20,6 +20,7 @@ class QMLEnvironment : public QObject, boost::noncopyable
         static QMLEnvironment & instance();
         static void clean();
 
+        // 2 + types registration
         template <typename T, typename T2, typename ... Args>
         static void registerComponents()
         {
@@ -27,12 +28,14 @@ class QMLEnvironment : public QObject, boost::noncopyable
             registerComponents<T2, Args ...>();
         }
 
+        // 1 type registration
         template <typename T>
         static void registerComponents()
         { 
             registerComponent<T>();
         }
 
+        // Custom Component registration
         template <typename T>
         static typename std::enable_if<std::is_base_of<QMLBaseComponent<T>, T>::value, void>::type
         registerComponent()
@@ -41,6 +44,7 @@ class QMLEnvironment : public QObject, boost::noncopyable
                                T::minorVersion, T::qmlName);
         }
 
+        // Standard type registration
         template <typename T>
         static typename std::enable_if<!std::is_base_of<QMLBaseComponent<T>, T>::value, void>::type
         registerComponent()

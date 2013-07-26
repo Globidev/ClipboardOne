@@ -24,6 +24,19 @@ QMLEnvironment::QMLEnvironment() : QObject(),
     });
 
     qAddPostRoutine(clean);
+
+    auto addContextObject = [this](QObject * object)
+    {
+        engine_->rootContext()->setContextProperty(object->objectName(), 
+                                                   QVariant::fromValue(object));
+    };
+
+    addContextObject(&SystemTray::instance());
+    addContextObject(&ImageLoader::instance());
+    addContextObject(&ProcessManager::instance());
+    addContextObject(&NetworkAccessManager::instance());
+    addContextObject(&DynamicImageEngine::instance());
+    addContextObject(&QMLUiTools::instance());
 }
 
 void QMLEnvironment::clean()
@@ -61,7 +74,11 @@ void QMLEnvironment::addPlugin(const QUrl & qmlFileUrl)
         }
 
         if(component->isError())
+        {
             qDebug() << component->errors();
+            component->deleteLater();
+            instance().engine_->clearComponentCache();
+        }
     });
 
     component->loadUrl(qmlFileUrl);
@@ -69,13 +86,6 @@ void QMLEnvironment::addPlugin(const QUrl & qmlFileUrl)
 
 void QMLEnvironment::initPlugin(QMLPlugin * plugin)
 {
-    plugin->addContextProperty(&SystemTray::instance());
-    plugin->addContextProperty(&ImageLoader::instance());
-    plugin->addContextProperty(&ProcessManager::instance());
-    plugin->addContextProperty(&NetworkAccessManager::instance());
-    plugin->addContextProperty(&DynamicImageEngine::instance());
-    plugin->addContextProperty(&QMLUiTools::instance());
-
     // Load shortcut settings
     if(plugin->clipboard())
     {
