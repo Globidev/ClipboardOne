@@ -56,33 +56,50 @@ void QMLEnvironment::addPlugin(const QUrl & qmlFileUrl)
 {
     auto component = new QQmlComponent(instance().engine_.get());
 
-    QObject::connect(component, &QQmlComponent::statusChanged, [component, qmlFileUrl]
+    QObject::connect(component, &QQmlComponent::statusChanged, 
+        [=](QQmlComponent::Status status)
     {
-        if(component->isReady())
+        switch(status)
         {
-            auto plugin = qobject_cast<QMLPlugin *>(component->create());
-            if(!plugin) // failed to laod plugin most likely due to incorrect Plugin structure 
-            {
-                qDebug() << "Failed to create plugin";
-                return;
-            }
-            initPlugin(plugin);
-            instance().plugins_.push_back(
-                std::make_pair(Component(component), Plugin(plugin))
-            );
-            Q_EMIT instance().pluginAdded(pluginCount() - 1);
-            instance().addPluginToCache(qmlFileUrl);
-        }
+            case QQmlComponent::Ready : 
+                instance().onComponentReady(component, qmlFileUrl);
+                break;
 
-        if(component->isError())
-        {
-            qDebug() << component->errors();
-            component->deleteLater();
-            instance().engine_->clearComponentCache();
+            case QQmlComponent::Error :
+                instance().onComponentError(component, qmlFileUrl);
+                break;
+
+            default : break;
         }
     });
 
     component->loadUrl(qmlFileUrl);
+}
+
+void QMLEnvironment::onComponentReady(QQmlComponent * component,
+                                      const QUrl & url)
+{
+    auto plugin = qobject_cast<QMLPlugin *>(component->create());
+
+    if(!plugin) // failed to laod plugin most likely due to incorrect Plugin structure 
+        return onComponentError(component, url);
+    
+    plugins_.push_back(std::make_pair(Component(component), 
+                                      Plugin(plugin)));
+
+    initPlugin(plugin);
+    addPluginToCache(url);
+
+    Q_EMIT pluginAdded(pluginCount() - 1);
+}
+
+void QMLEnvironment::onComponentError(QQmlComponent * component,
+                                      const QUrl & url)
+{
+    qDebug() << "Failed to create plugin"
+             << component->errors();
+    component->deleteLater();
+    instance().engine_->clearComponentCache();
 }
 
 void QMLEnvironment::initPlugin(QMLPlugin * plugin)

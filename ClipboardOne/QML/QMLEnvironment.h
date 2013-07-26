@@ -88,7 +88,10 @@ class QMLEnvironment : public QObject, boost::noncopyable
     private :
         QMLEnvironment();
 
+        void onComponentReady(QQmlComponent *, const QUrl &);
+        void onComponentError(QQmlComponent *, const QUrl &);
         static inline void initPlugin(QMLPlugin *);
+
         inline void addPluginToCache(const QUrl &);
         inline void removePluginFromCache(const QUrl &);
 
