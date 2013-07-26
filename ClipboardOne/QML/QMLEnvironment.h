@@ -21,22 +21,22 @@ class QMLEnvironment : public QObject, boost::noncopyable
         static void clean();
 
         // 2 + types registration
-        template <typename T, typename T2, typename ... Args>
+        template <class T, class T2, class ... Tn>
         static void registerComponents()
         {
             registerComponent<T>();
-            registerComponents<T2, Args ...>();
+            registerComponents<T2, Tn ...>();
         }
 
         // 1 type registration
-        template <typename T>
+        template <class T>
         static void registerComponents()
         { 
             registerComponent<T>();
         }
 
         // Custom Component registration
-        template <typename T>
+        template <class T>
         static typename std::enable_if<std::is_base_of<QMLBaseComponent<T>, T>::value, void>::type
         registerComponent()
         {
@@ -45,12 +45,34 @@ class QMLEnvironment : public QObject, boost::noncopyable
         }
 
         // Standard type registration
-        template <typename T>
+        template <class T>
         static typename std::enable_if<!std::is_base_of<QMLBaseComponent<T>, T>::value, void>::type
         registerComponent()
         {
             qmlRegisterType<T>();
         }
+
+        // 2 + singleton registration
+        template <class T, class T2, class ... Tn>
+        static void addSingletonToContext()
+        {
+            addSingletonToContext<T>();
+            addSingletonToContext<T2, Tn ...>();
+        }
+
+        // 1 singleton registration
+        template <class T>
+        static void addSingletonToContext()
+        {
+            static_assert(is_singleton<T>::value, 
+                          "Cannot register a non-singleton type as a singleton");
+            qmlRegisterType<T>();
+            auto & instance = T::instance();
+            rootContext()->setContextProperty(instance.objectName(),
+                                              QVariant::fromValue(&instance));
+        }
+
+        static QQmlContext * rootContext();
 
         static void addPlugin(const QUrl &);
         static void removePlugin(QMLPlugin *, bool);

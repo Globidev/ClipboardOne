@@ -25,18 +25,14 @@ QMLEnvironment::QMLEnvironment() : QObject(),
 
     qAddPostRoutine(clean);
 
-    auto addContextObject = [this](QObject * object)
-    {
-        engine_->rootContext()->setContextProperty(object->objectName(), 
-                                                   QVariant::fromValue(object));
-    };
-
-    addContextObject(&SystemTray::instance());
-    addContextObject(&ImageLoader::instance());
-    addContextObject(&ProcessManager::instance());
-    addContextObject(&NetworkAccessManager::instance());
-    addContextObject(&DynamicImageEngine::instance());
-    addContextObject(&QMLUiTools::instance());
+    addSingletonToContext <
+        SystemTray,
+        ImageLoader,
+        ProcessManager,
+        NetworkAccessManager,
+        DynamicImageEngine,
+        QMLUiTools
+    >();
 }
 
 void QMLEnvironment::clean()
@@ -49,6 +45,11 @@ QMLEnvironment & QMLEnvironment::instance()
 {
     static QMLEnvironment environment;
     return environment;
+}
+
+QQmlContext * QMLEnvironment::rootContext()
+{
+    return instance().engine_->rootContext();
 }
 
 void QMLEnvironment::addPlugin(const QUrl & qmlFileUrl)
