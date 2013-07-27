@@ -23,9 +23,9 @@ class SystemTray : public QSystemTrayIcon, boost::noncopyable
         inline void initContextMenu();
         std::unique_ptr<QMenu> contextMenu_;
 
-        std::unique_ptr<PluginEditor> pluginEditor;
+        std::unique_ptr<PluginEditor> pluginEditor_;
 
-        std::unique_ptr<QColorDialog> colorDialog;
+        std::unique_ptr<QColorDialog> colorDialog_;
 };
 
 Constant SYSTEM_TRAY_OBJECT_NAME = "SystemTray";

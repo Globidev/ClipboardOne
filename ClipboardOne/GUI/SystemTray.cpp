@@ -13,11 +13,12 @@ SystemTray & SystemTray::instance()
 
 SystemTray::SystemTray() : QSystemTrayIcon(),
     contextMenu_(new QMenu),
-    pluginEditor(new PluginEditor),
-    colorDialog(new QColorDialog)
+    colorDialog_(new QColorDialog)
 {
     setObjectName(SYSTEM_TRAY_OBJECT_NAME);
     setToolTip(SYSTEM_TRAY_BASE_TOOLTIP);
+
+    pluginEditor_.reset(new PluginEditor);
 
     initContextMenu();
     updateIcon();
@@ -26,7 +27,7 @@ SystemTray::SystemTray() : QSystemTrayIcon(),
                      &DynamicImageEngine::maskChanged,
                      this, &SystemTray::updateIcon);
 
-    QObject::connect(colorDialog.get(), 
+    QObject::connect(colorDialog_.get(), 
                      &QColorDialog::currentColorChanged, 
                      &DynamicImageEngine::setMaskColor);
 
@@ -37,8 +38,8 @@ void SystemTray::clean()
 {
     instance().contextMenu_.release(); // LEAK (use reset when fixed)
                                        // QT BUG : https://bugreports.qt-project.org/browse/QTBUG-30756
-    instance().pluginEditor.reset();
-    instance().colorDialog.reset();
+    instance().pluginEditor_.reset();
+    instance().colorDialog_.reset();
 }
 
 void SystemTray::alert(const QString & message, 
@@ -51,11 +52,11 @@ void SystemTray::alert(const QString & message,
 void SystemTray::initContextMenu()
 {
     auto pluginAction = new QAction(SYSTEM_TRAY_PLUGINS, contextMenu_.get());
-    QObject::connect(pluginAction, &QAction::triggered, [this] { pluginEditor->show(); });
+    QObject::connect(pluginAction, &QAction::triggered, [this] { pluginEditor_->show(); });
     contextMenu_->addAction(pluginAction);
 
     auto optionsAction = new QAction(SYSTEM_TRAY_OPTIONS, contextMenu_.get());
-    QObject::connect(optionsAction, &QAction::triggered, [this] { colorDialog->show(); });
+    QObject::connect(optionsAction, &QAction::triggered, [this] { colorDialog_->show(); });
     contextMenu_->addAction(optionsAction);
 
     auto quitAction = new QAction(SYSTEM_TRAY_EXIT, contextMenu_.get());
