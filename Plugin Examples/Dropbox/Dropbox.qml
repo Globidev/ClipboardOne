@@ -27,34 +27,32 @@ Plugin {
         }
     }
 
-    uis : [
-        Ui {
-            id : configUi
-            file : Qt.resolvedUrl('DBXConfig.ui')
+    Ui {
+        id : configUi
+        file : Qt.resolvedUrl('DBXConfig.ui')
 
-            Component.onCompleted : { // Init ui state and interactions
-                configUi.mainWindow.windowIcon = plugin.loadedIcon 
+        Component.onCompleted : { // Init ui state and interactions
+            configUi.mainWindow.windowIcon = plugin.loadedIcon 
 
-                loaded.previewUrls.checked = parseInt(conf.value('preview_urls', true))
-                loaded.shortUrls.checked   = parseInt(conf.value('short_urls', true))
-                loaded.shortUrls.enabled   = loaded.previewUrls.checked
+            loaded.previewUrls.checked = parseInt(conf.value('preview_urls', true))
+            loaded.shortUrls.checked   = parseInt(conf.value('short_urls', true))
+            loaded.shortUrls.enabled   = loaded.previewUrls.checked
 
-                loaded.fileExtension.currentText = conf.value('file_extension', 'png')
-                loaded.filenamePattern.text      = conf.value('filename_pattern', 'yyyy.MM.dd.hh.mm.ss.zzz')
+            loaded.fileExtension.currentText = conf.value('file_extension', 'png')
+            loaded.filenamePattern.text      = conf.value('filename_pattern', 'yyyy.MM.dd.hh.mm.ss.zzz')
 
-                loaded.shortUrls.stateChanged          .connect(conf.setter('short_urls')      )
-                loaded.previewUrls.stateChanged        .connect(conf.setter('preview_urls')    )
-                loaded.filenamePattern.textEdited      .connect(conf.setter('filename_pattern'))
-                loaded.fileExtension.currentTextChanged.connect(conf.setter('file_extension')  )
-                loaded.patternHelp.clicked             .connect(dateTimeHelper.show            )
-            }
-        },
-
-        Ui {
-            id : dateTimeHelper
-            file : Qt.resolvedUrl('DateTimeHelper.ui')
+            loaded.shortUrls.stateChanged          .connect(conf.setter('short_urls')      )
+            loaded.previewUrls.stateChanged        .connect(conf.setter('preview_urls')    )
+            loaded.filenamePattern.textEdited      .connect(conf.setter('filename_pattern'))
+            loaded.fileExtension.currentTextChanged.connect(conf.setter('file_extension')  )
+            loaded.patternHelp.clicked             .connect(dateTimeHelper.show            )
         }
-    ]
+    }
+
+    Ui {
+        id : dateTimeHelper
+        file : Qt.resolvedUrl('DateTimeHelper.ui')
+    }
 
     clipboard : Clipboard {
         autoTrigger : false

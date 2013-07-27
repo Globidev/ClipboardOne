@@ -25,47 +25,45 @@ Plugin {
         prefix : 'Rainbow & Unicorns'
     }
 
-    uis : [
-        Ui {
-            id   : configUi
-            file : Qt.resolvedUrl('unicorn.ui')
+    Ui {
+        id   : configUi
+        file : Qt.resolvedUrl('unicorn.ui')
 
-            function init() {
-                var enabled  = conf.value('enabled', 'false').toBool()
-                var interval = conf.value('timer_interval', 500)
-                var step     = conf.value('component_step', 25)
+        function init() {
+            var enabled  = conf.value('enabled', 'false').toBool()
+            var interval = conf.value('timer_interval', 500)
+            var step     = conf.value('component_step', 25)
 
-                enable(enabled)
-                changeInterval(interval)
-                changeStep(step)
+            enable(enabled)
+            changeInterval(interval)
+            changeStep(step)
 
-                loaded.enabled.checked = enabled
-                loaded.interval.value  = interval
-                loaded.step.value      = step
+            loaded.enabled.checked = enabled
+            loaded.interval.value  = interval
+            loaded.step.value      = step
 
-                loaded.enabled.toggled.connect(enable)
-                loaded.interval.valueChanged.connect(changeInterval)
-                loaded.step.valueChanged.connect(changeStep)
-            }
-
-            function enable(enabled) {
-                timer.running = enabled
-                conf.setValue('enabled', enabled)
-            }
-
-            function changeInterval(value) {
-                timer.interval = value
-                loaded.intervalLabel.text = String(value) + ' ms'
-                conf.setValue('timer_interval', value)
-            }
-
-            function changeStep(value) {
-                step = value
-                loaded.stepLabel.text = String(value)
-                conf.setValue('component_step', value)
-            }
+            loaded.enabled.toggled.connect(enable)
+            loaded.interval.valueChanged.connect(changeInterval)
+            loaded.step.valueChanged.connect(changeStep)
         }
-    ]
+
+        function enable(enabled) {
+            timer.running = enabled
+            conf.setValue('enabled', enabled)
+        }
+
+        function changeInterval(value) {
+            timer.interval = value
+            loaded.intervalLabel.text = String(value) + ' ms'
+            conf.setValue('timer_interval', value)
+        }
+
+        function changeStep(value) {
+            step = value
+            loaded.stepLabel.text = String(value)
+            conf.setValue('component_step', value)
+        }
+    }
 
     onConfigure : configUi.show()
 

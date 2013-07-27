@@ -25,19 +25,17 @@ Plugin {
         function setter(key) { return function(value) { setValue(key, value) } }
     }
 
-    uis : [
-        Ui {
-            id : uiConfig
-            file : Qt.resolvedUrl('Imgur.ui')
+    Ui {
+        id : uiConfig
+        file : Qt.resolvedUrl('Imgur.ui')
 
-            Component.onCompleted : {
-                uiConfig.mainWindow.windowIcon = plugin.loadedIcon
+        Component.onCompleted : {
+            uiConfig.mainWindow.windowIcon = plugin.loadedIcon
 
-                loaded.fileExtension.setCurrentText(conf.value('file_extension', 'png'))
-                loaded.fileExtension.currentTextChanged.connect(conf.setter('file_extension'))
-            }
+            loaded.fileExtension.setCurrentText(conf.value('file_extension', 'png'))
+            loaded.fileExtension.currentTextChanged.connect(conf.setter('file_extension'))
         }
-    ]
+    }
 
     clipboard : Clipboard {
         autoTrigger : false

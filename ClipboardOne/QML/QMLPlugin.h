@@ -25,6 +25,8 @@ class QMLPlugin : public QQmlComponent, public QMLBaseComponent<QMLPlugin>
 
     Q_PROPERTY(QIcon loadedIcon READ loadedIcon)
 
+    Q_CLASSINFO("DefaultProperty", "uis")
+
     typedef QQmlListProperty<QMLUi> Uis;
 
     public :

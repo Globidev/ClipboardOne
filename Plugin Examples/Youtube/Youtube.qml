@@ -24,27 +24,25 @@ Plugin {
         function setter(key) { return function(value) { setValue(key, value) }; }
     }
 
-    uis : [
-        Ui {
-            id : configUi
-            file : Qt.resolvedUrl('YoutubeConfig.ui')
+    Ui {
+        id : configUi
+        file : Qt.resolvedUrl('YoutubeConfig.ui')
 
-            Component.onCompleted : {
-                mainWindow.windowIcon = ImageLoader.loadIcon(Qt.resolvedUrl('Youtube_icon.svg'))
+        Component.onCompleted : {
+            mainWindow.windowIcon = ImageLoader.loadIcon(Qt.resolvedUrl('Youtube_icon.svg'))
 
-                loaded.activable.checked     = conf.value('activable', 'false').toBool()
-                loaded.openInBrowser.checked = conf.value('open_in_browser', 'true').toBool()
-                loaded.openInPlayer.checked  = conf.value('open_in_player', 'false').toBool()
-                loaded.mediaPlayer.text      = conf.value('media_player_path', '')
+            loaded.activable.checked     = conf.value('activable', 'false').toBool()
+            loaded.openInBrowser.checked = conf.value('open_in_browser', 'true').toBool()
+            loaded.openInPlayer.checked  = conf.value('open_in_player', 'false').toBool()
+            loaded.mediaPlayer.text      = conf.value('media_player_path', '')
 
-                loaded.activable.toggled.connect(setActivable)
-                setActivable(loaded.activable.checked)
-                loaded.openInBrowser.toggled.connect(conf.setter('open_in_browser'))
-                loaded.openInPlayer.toggled.connect(conf.setter('open_in_player'))
-                loaded.mediaPlayer.textChanged.connect(conf.setter('media_player_path'))
-            }
+            loaded.activable.toggled.connect(setActivable)
+            setActivable(loaded.activable.checked)
+            loaded.openInBrowser.toggled.connect(conf.setter('open_in_browser'))
+            loaded.openInPlayer.toggled.connect(conf.setter('open_in_player'))
+            loaded.mediaPlayer.textChanged.connect(conf.setter('media_player_path'))
         }
-    ]
+    }
 
     onConfigure : {
         configUi.show()
