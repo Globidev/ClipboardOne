@@ -7,16 +7,24 @@ QMLUiTools & QMLUiTools::instance()
     return uiTools;
 }
 
-QMLUiTools::QMLUiTools() : QObject()
+QMLUiTools::QMLUiTools() : QObject(),
+    rootWidget(new QWidget)
 {
     setObjectName(QML_UI_TOOLS_OBJECT_NAME);
+    qAddPostRoutine(clean);
 }
 
-QWidget * QMLUiTools::qmlWidget(const QUrl & url)
+void QMLUiTools::clean()
 {
-    auto view = new QQuickView;
-    view->setSource(url);
-    return QWidget::createWindowContainer(view);
+    instance().rootWidget.reset();
+}
+
+QWidget * QMLUiTools::qmlWidget(QQuickItem * rootItem)
+{
+    if(!rootItem) return nullptr;
+    auto window = new QQuickWindow;
+    rootItem->setParentItem(window->contentItem());
+    return QWidget::createWindowContainer(window, rootWidget.get(), Qt::Window);
 }
 
 void QMLUiTools::layWidget(QLayout * layout, QWidget * widget)

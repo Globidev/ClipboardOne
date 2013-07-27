@@ -7,12 +7,14 @@ class QMLUiTools : public QObject, boost::noncopyable
 
     public :
         static QMLUiTools & instance();
+        static void clean();
 
-        Q_INVOKABLE QWidget * qmlWidget(const QUrl &);
+        Q_INVOKABLE QWidget * qmlWidget(QQuickItem *);
         Q_INVOKABLE void layWidget(QLayout *, QWidget *);
 
     private :
         QMLUiTools();
+        std::unique_ptr<QWidget> rootWidget;
 };
 
 Constant QML_UI_TOOLS_OBJECT_NAME = "UiTools";
