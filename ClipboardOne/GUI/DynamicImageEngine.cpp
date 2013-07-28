@@ -3,6 +3,21 @@
 
 #include "Core/Settings.h"
 
+MonochromeImage::MonochromeImage(const QString & fileName) :
+    pixmap(new QPixmap(fileName)),
+    mask(new QBitmap(pixmap->createMaskFromColor(Qt::black, Qt::MaskOutColor))),
+    rect(pixmap->rect())
+{
+}
+
+void MonochromeImage::setMaskColor(const QColor & color)
+{
+    painter.begin(pixmap.get());
+    painter.setPen(color);
+    painter.drawPixmap(rect, *mask, rect);
+    painter.end();
+}
+
 DynamicImageEngine & DynamicImageEngine::instance()
 {
     static DynamicImageEngine iconEngine;
@@ -27,14 +42,20 @@ void DynamicImageEngine::setMaskColor(const QColor & color)
     Settings::setValue("mask_color", color, "Ui");
 }
 
+MonochromeImage * DynamicImageEngine::image(const QString & fileName)
+{
+    auto found = images_.find(fileName);
+    
+    if(found == images_.end())
+        found = images_.emplace(fileName, 
+            std::unique_ptr<MonochromeImage>(new MonochromeImage(fileName))).first;
+
+    return found->second.get();
+}
+
 QPixmap DynamicImageEngine::colored(const QString & fileName)
 {
-    QPixmap pixmap(fileName);
-    QBitmap mask = pixmap.createMaskFromColor(Qt::black, Qt::MaskOutColor);
-
-    QPainter painter(&pixmap);
-    painter.setPen(instance().maskColor_);
-    painter.drawPixmap(pixmap.rect(), mask, mask.rect());
-
-    return pixmap;
+    auto imageData = instance().image(fileName);
+    imageData->setMaskColor(instance().maskColor_);
+    return *imageData->pixmap;
 }
