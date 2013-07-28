@@ -18,7 +18,7 @@ ImageLoader::ImageLoader() : QObject()
 QPixmap ImageLoader::loadPixmap(const QUrl & url)
 {
     auto reply = NetworkAccessManager::get(url, QJsonObject(), false);
-    return loadPixmap(reply->rawData());
+    return loadPixmapFromData(reply->rawData());
 }
 
 QIcon ImageLoader::loadIcon(const QUrl & url)
@@ -26,14 +26,14 @@ QIcon ImageLoader::loadIcon(const QUrl & url)
     return loadPixmap(url);
 }
 
-QPixmap ImageLoader::loadPixmap(const QByteArray & data)
+QPixmap ImageLoader::loadPixmapFromData(const QByteArray & data)
 {
     QPixmap pixmap;
     pixmap.loadFromData(data);
     return pixmap;
 }
 
-QIcon ImageLoader::loadIcon(const QByteArray & data)
+QIcon ImageLoader::loadIconFromData(const QByteArray & data)
 {
-    return loadPixmap(data);
+    return loadPixmapFromData(data);
 }

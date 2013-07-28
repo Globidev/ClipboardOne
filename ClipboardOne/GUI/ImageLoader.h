@@ -11,8 +11,9 @@ class ImageLoader : public QObject, boost::noncopyable
         Q_INVOKABLE QPixmap loadPixmap(const QUrl &);
         Q_INVOKABLE QIcon loadIcon(const QUrl &);
 
-        Q_INVOKABLE QPixmap loadPixmap(const QByteArray &);
-        Q_INVOKABLE QIcon loadIcon(const QByteArray &);
+        // It seems QML does not resolve overloading correctly
+        Q_INVOKABLE QPixmap loadPixmapFromData(const QByteArray &);
+        Q_INVOKABLE QIcon loadIconFromData(const QByteArray &);
 
     private :
         ImageLoader();
