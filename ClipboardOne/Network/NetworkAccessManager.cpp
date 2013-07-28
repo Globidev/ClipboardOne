@@ -60,7 +60,7 @@ NetworkHTTPReply * NetworkAccessManager::post(const QUrl & url,
 {
     return instance().sendRequest(static_cast<BytePayloadRequest>(&QNetworkAccessManager::post),
                                   makeRequest(url, headers),
-                                  jsonToQueryString(payload),
+                                  queryString(payload),
                                   asynchronous);
 }
 
@@ -75,6 +75,28 @@ NetworkHTTPReply * NetworkAccessManager::put(const QUrl & url,
                                   asynchronous);
 }
 
+QByteArray NetworkAccessManager::queryString(const QJsonObject & dict)
+{
+    QUrlQuery query = makeQuery(dict);
+    return query.toString(QUrl::FullyEncoded).toUtf8();
+}
+
+QString NetworkAccessManager::url(QUrl url, const QJsonObject & dict)
+{
+    url.setQuery(makeQuery(dict));
+    return url.toString(QUrl::FullyEncoded);
+}
+
+QUrlQuery NetworkAccessManager::makeQuery(const QJsonObject & dict)
+{
+    QUrlQuery query;
+
+    for(QJsonObject::ConstIterator it(dict.begin()); it != dict.end(); ++ it)
+        query.addQueryItem(it.key(), it.value().toString());
+
+    return query;
+}
+
 QNetworkRequest NetworkAccessManager::makeRequest(const QUrl & url, 
                                                   const QJsonObject & headers)
 {
@@ -84,13 +106,4 @@ QNetworkRequest NetworkAccessManager::makeRequest(const QUrl & url,
         request.setRawHeader(it.key().toUtf8(), it.value().toString().toUtf8());
 
     return request;
-}
-
-QByteArray NetworkAccessManager::jsonToQueryString(const QJsonObject & payload)
-{
-    QUrlQuery query;
-    for(QJsonObject::const_iterator it(payload.begin()); it != payload.end(); ++ it)
-        query.addQueryItem(it.key(), it.value().toString());
-
-    return query.toString(QUrl::FullyEncoded).toUtf8();
 }

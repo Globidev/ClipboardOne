@@ -34,6 +34,9 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
         put(const QUrl &, const QJsonObject & = QJsonObject(), 
             const QByteArray & = QByteArray(), bool = true);
 
+        Q_INVOKABLE static QByteArray queryString(const QJsonObject &);
+        Q_INVOKABLE static QString url(QUrl, const QJsonObject &);
+
     private :
         NetworkAccessManager();
 
@@ -52,7 +55,7 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
         }
 
         static inline QNetworkRequest makeRequest(const QUrl &, const QJsonObject &); 
-        static inline QByteArray jsonToQueryString(const QJsonObject &);
+        static QUrlQuery makeQuery(const QJsonObject &);
 
         size_t httpTimeout_;
 };
