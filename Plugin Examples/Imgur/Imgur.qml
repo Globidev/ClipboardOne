@@ -47,7 +47,7 @@ Plugin {
 
                 withToken(function(token) {
                     SystemTray.alert('Uploading image to Imgur', 'Plug-in Imgur : uploading')
-                    upload(image, token)
+                    upload(imageData, token)
                 })
             }
         }
