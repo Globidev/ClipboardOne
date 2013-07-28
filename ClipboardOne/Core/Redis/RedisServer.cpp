@@ -3,6 +3,8 @@
 
 #include "RedisClient.h"
 
+#include "Core/Settings.h"
+
 RedisServer::RedisServer()
 {
     QObject::connect(&process_, &QProcess::readyReadStandardOutput, [this]
@@ -15,12 +17,17 @@ RedisServer::RedisServer()
         qDebug() << process_.readAllStandardError();
     });
 
-    process_.start(REDIS_SERVER_EXECUTABLE);
+    process_.setWorkingDirectory(Settings::directory());
+
+    QStringList arguments;
+    arguments << QDir(QDir::currentPath()).filePath(REDIS_SERVER_CONF_FILE);
+
+    process_.start(REDIS_SERVER_EXECUTABLE, arguments);
     process_.waitForStarted();
 
-    master_ = std::unique_ptr<RedisClient>(new RedisClient);
+    master_.reset(new RedisClient);
 
-    qAddPostRoutine([] { clean(); });
+    qAddPostRoutine(clean);
 }
 
 RedisServer::~RedisServer()

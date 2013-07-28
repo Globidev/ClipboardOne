@@ -19,4 +19,6 @@ class RedisServer : boost::noncopyable
         std::unique_ptr<RedisClient> master_;
 };
 
+Constant REDIS_SERVER_CONF_FILE = "redis_config.conf";
+
 #endif // REDISSERVER_H

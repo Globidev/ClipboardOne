@@ -24,6 +24,8 @@ class Settings : boost::noncopyable
         static void removeKey(const QString &);
         static QStringList allKeys();
 
+        static QString directory();
+
     private :
         Settings();
 

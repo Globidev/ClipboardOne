@@ -35,6 +35,13 @@ QStringList Settings::allKeys()
     return instance().settings_->allKeys();
 }
 
+QString Settings::directory()
+{
+    QDir dir(instance().settings_->fileName());
+    dir.cdUp();
+    return QDir::toNativeSeparators(dir.path());
+}
+
 Settings::Scope::Scope(const QString & scopeName)
 {
     Settings::instance().settings_->beginGroup(scopeName);
