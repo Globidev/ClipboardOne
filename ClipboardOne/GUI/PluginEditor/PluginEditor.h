@@ -15,6 +15,10 @@ class PluginEditor : public QWidget
 
         Q_SLOT void addNewPlugin();
 
+    protected :
+        virtual void dragEnterEvent(QDragEnterEvent *);
+        virtual void dropEvent(QDropEvent *);
+
     private :
         Q_SLOT void updateIcons();
 
@@ -27,5 +31,7 @@ class PluginEditor : public QWidget
 Constant PLUGIN_EDITOR_ADD_PLUGIN_ICON = ":/PluginEditor/Add";
 Constant PLUGIN_EDITOR_SHOW_LOGS_ICON = ":/PluginEditor/Logs";
 Constant PLUDIN_EDITOR_WINDOW_ICON = ":/SystemTray/Scissors";
+
+Constant QML_FILE_EXTENSION = "qml";
 
 #endif // PLUGINEDITOR_H
