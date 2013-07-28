@@ -14,7 +14,8 @@ ShortcutEditorIcon::ShortcutEditorIcon(QWidget * parent) : QGraphicsView(parent)
     validItem_       (new DynamicSVGItem(SHORTCUT_EDITOR_ICON_VALID)),
     invalidItem_     (new DynamicSVGItem(SHORTCUT_EDITOR_ICON_INVALID)),
     inProgressItem_  (new DynamicSVGItem(SHORTCUT_EDITOR_ICON_PROGRESS)),
-    nonActivableItem_(new DynamicSVGItem(SHORTCUT_EDITOR_ICON_NON_ACTIVABLE))
+    nonActivableItem_(new DynamicSVGItem(SHORTCUT_EDITOR_ICON_NON_ACTIVABLE)),
+    valid_(false)
 {
     setScene(&scene_);
 
