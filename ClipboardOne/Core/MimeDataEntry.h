@@ -18,6 +18,7 @@ class MimeDataEntry : public QMimeData
         Q_INVOKABLE bool hasHtml () const { return QMimeData::hasHtml();  }
         Q_INVOKABLE bool hasColor() const { return QMimeData::hasColor(); }
         Q_INVOKABLE bool hasUrls () const { return QMimeData::hasUrls();  }
+        Q_INVOKABLE bool hasFormat(const QString &) const;
 
         Q_INVOKABLE QString     text() const { return QMimeData::text(); }
         Q_INVOKABLE QString     html() const { return QMimeData::html(); }
@@ -27,6 +28,10 @@ class MimeDataEntry : public QMimeData
 
         Q_INVOKABLE QByteArray  data(const QString &) const;
         Q_INVOKABLE QVariantMap data()                const;
+
+        Q_INVOKABLE void setText(const QString &);
+        Q_INVOKABLE void setHtml(const QString &);
+        Q_INVOKABLE void setUrls(const QList<QUrl> &);
 
         Q_INVOKABLE void setData(const QString &, const QByteArray &);
         Q_INVOKABLE void setData(const QVariantMap &);

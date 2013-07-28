@@ -48,6 +48,11 @@ void MimeDataEntry::init()
     timeStamp_ = QDateTime::currentDateTime();
 }
 
+bool MimeDataEntry::hasFormat(const QString & format) const
+{
+    return QMimeData::hasFormat(format);
+}
+
 QByteArray MimeDataEntry::rawImageData(const QString & format) const
 {
     QByteArray data;
@@ -69,6 +74,21 @@ QVariantMap MimeDataEntry::data() const
     for(const QString & mimeType : formats())
         dataMap.insert(mimeType, data(mimeType));
     return dataMap;
+}
+
+void MimeDataEntry::setText(const QString & text)
+{
+    QMimeData::setText(text);
+}
+
+void MimeDataEntry::setHtml(const QString & html)
+{
+    QMimeData::setHtml(html);
+}
+
+void MimeDataEntry::setUrls(const QList<QUrl> & urls)
+{
+    QMimeData::setUrls(urls);
 }
 
 void MimeDataEntry::setData(const QString & mimeType, 
