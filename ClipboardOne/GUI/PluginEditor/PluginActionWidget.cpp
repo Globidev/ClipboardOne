@@ -35,7 +35,8 @@ PluginActionWidget::PluginActionWidget(QMLPlugin * plugin,
 
     QObject::connect(&DynamicImageEngine::instance(), 
                      &DynamicImageEngine::maskChanged, 
-                     this, &PluginActionWidget::updateIcons);
+                     this, &PluginActionWidget::updateIcons,
+                     Qt::QueuedConnection);
     updateIcons();
 
     QObject::connect(ui_->remove, &QToolButton::clicked, 
