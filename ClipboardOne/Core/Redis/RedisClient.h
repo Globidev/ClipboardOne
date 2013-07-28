@@ -5,7 +5,6 @@ class RedisClient : boost::noncopyable
 {
     public :
         RedisClient(const char * = LOCALHOST_IP, int = REDIS_DEFAULT_PORT);
-        ~RedisClient();
 
         bool connected() const;
         bool sendCommand(const QString &);
@@ -14,7 +13,9 @@ class RedisClient : boost::noncopyable
         QByteArray get(const QString &);
 
     private :
-        redisContext * context_;
+        std::unique_ptr<redisContext> context_;
 };
+
+static const struct timeval REDIS_CONNECTION_TIMEOUT = { 2 }; // 2 seconds
 
 #endif // REDISCLIENT_H
