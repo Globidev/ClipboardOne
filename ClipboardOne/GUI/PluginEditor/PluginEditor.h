@@ -32,6 +32,4 @@ Constant PLUGIN_EDITOR_ADD_PLUGIN_ICON = ":/PluginEditor/Add";
 Constant PLUGIN_EDITOR_SHOW_LOGS_ICON = ":/PluginEditor/Logs";
 Constant PLUDIN_EDITOR_WINDOW_ICON = ":/SystemTray/Scissors";
 
-Constant QML_FILE_EXTENSION = "qml";
-
 #endif // PLUGINEDITOR_H

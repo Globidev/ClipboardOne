@@ -41,18 +41,17 @@ void PluginEditor::updateIcons()
 
 void PluginEditor::dragEnterEvent(QDragEnterEvent * event)
 {
-    for(const QUrl & url : event->mimeData()->urls())
-        if(QFileInfo(url.toLocalFile()).suffix().toLower() == QML_FILE_EXTENSION)
-        {
-            event->acceptProposedAction();
-            break;
-        }
+    auto urlList = event->mimeData()->urls().toStdList();
+    bool hasQmlFiles = std::any_of(urlList.cbegin(),
+                                   urlList.cend(),
+                                   IS_QML_LOCAL_FILE);
+    if(hasQmlFiles) event->acceptProposedAction();
 }
 
 void PluginEditor::dropEvent(QDropEvent * event)
 {
     for(const QUrl & url : event->mimeData()->urls())
-        if(QFileInfo(url.toLocalFile()).suffix().toLower() == QML_FILE_EXTENSION)
+        if(IS_QML_LOCAL_FILE(url))
             QMLEnvironment::addPlugin(url);
     event->acceptProposedAction();
 }

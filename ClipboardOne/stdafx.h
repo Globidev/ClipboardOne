@@ -64,6 +64,15 @@ Constant REDIS_CLIPBOARD_ENTRY_KEY = [](quint32 index)
 Constant CUSTOM_MIME_TYPE = "application/x-qt";
 Constant IMAGE_MIME_TYPE  = "application/x-qt-image";
 
+Constant QML_FILE_EXTENSION = "qml";
+Constant IS_QML_LOCAL_FILE = [](const QUrl & url)
+{
+    if(!url.isLocalFile()) return false;
+
+    QFileInfo fileInfo(url.toLocalFile());
+    return fileInfo.suffix().toLower() == QML_FILE_EXTENSION;
+};
+
 // Shortcuts
 typedef std::set<int> Shortcut;
     // For serialization
