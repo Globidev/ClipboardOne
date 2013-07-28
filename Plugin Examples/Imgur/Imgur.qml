@@ -43,7 +43,7 @@ Plugin {
         onActivated : {
             if(data.hasImage()) {
                 var extension = uiConfig.loaded.fileExtension.currentText
-                var image     = data.percentEncodedData(extension)
+                var imageData = Encoding.percentEncode(data.rawImageData(extension))
 
                 withToken(function(token) {
                     SystemTray.alert('Uploading image to Imgur', 'Plug-in Imgur : uploading')

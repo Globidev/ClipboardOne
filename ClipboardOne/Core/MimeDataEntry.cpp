@@ -48,11 +48,6 @@ void MimeDataEntry::init()
     timeStamp_ = QDateTime::currentDateTime();
 }
 
-QString MimeDataEntry::percentEncodedData(const QString & format) const
-{
-    return rawImageData(format).toPercentEncoding();
-}
-
 QByteArray MimeDataEntry::rawImageData(const QString & format) const
 {
     QByteArray data;

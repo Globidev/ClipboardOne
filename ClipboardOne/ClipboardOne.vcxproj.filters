@@ -385,6 +385,18 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_ClipboardWatcher.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Encoding.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Encoding.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_Encoding.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Encoding.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -512,6 +524,9 @@
       <Filter>Header Files\GUI\PluginEditor</Filter>
     </CustomBuild>
     <CustomBuild Include="Core\GlobiSingleApplication.h">
+      <Filter>Header Files\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Core\Encoding.h">
       <Filter>Header Files\Core</Filter>
     </CustomBuild>
   </ItemGroup>

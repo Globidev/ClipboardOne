@@ -23,8 +23,7 @@ class MimeDataEntry : public QMimeData
         Q_INVOKABLE QString     html() const { return QMimeData::html(); }
         Q_INVOKABLE QList<QUrl> urls() const { return QMimeData::urls(); }
 
-        Q_INVOKABLE QString    percentEncodedData(const QString & = PNG_FORMAT) const;
-        Q_INVOKABLE QByteArray rawImageData      (const QString & = PNG_FORMAT) const;
+        Q_INVOKABLE QByteArray rawImageData(const QString & = PNG_FORMAT) const;
 
         Q_INVOKABLE QByteArray  data(const QString &) const;
         Q_INVOKABLE QVariantMap data()                const;

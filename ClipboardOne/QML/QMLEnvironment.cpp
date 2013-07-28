@@ -14,6 +14,7 @@
 
 #include "Core/ProcessManager.h"
 #include "Core/Settings.h"
+#include "Core/Encoding.h"
 
 QMLEnvironment::QMLEnvironment() : QObject(),
     engine_(new QQmlEngine)
@@ -31,7 +32,8 @@ QMLEnvironment::QMLEnvironment() : QObject(),
         ProcessManager,
         NetworkAccessManager,
         DynamicImageEngine,
-        QMLUiTools
+        QMLUiTools,
+        Encoding
     >();
 }
 
