@@ -15,6 +15,14 @@ QHttpMultiPart * NetworkHTTPRequest::multiPart() const
     return multiPart_.get();
 }
 
+QJsonObject NetworkHTTPRequest::headers() const
+{
+    QJsonObject headers;
+    for(const auto & headerName : rawHeaderList())
+        headers.insert(headerName, QString(rawHeader(headerName)));
+    return headers;
+}
+
 void NetworkHTTPRequest::setUrl(const QUrl & url)
 {
     QNetworkRequest::setUrl(url);

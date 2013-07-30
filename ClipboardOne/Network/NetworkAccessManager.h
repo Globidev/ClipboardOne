@@ -1,6 +1,7 @@
 #ifndef NETWORKACCESSMANAGER_H
 #define NETWORKACCESSMANAGER_H
 
+class NetworkHTTPRequest;
 class NetworkHTTPReply;
 class LocalHTTPServer;
 
@@ -8,10 +9,10 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
 {
     Q_OBJECT
 
-    Q_ENUMS(Operation)
-
     typedef QNetworkReply * (QNetworkAccessManager::*BytePayloadRequest)
                             (const QNetworkRequest &, const QByteArray &);
+    typedef QNetworkReply * (QNetworkAccessManager::*MultiPartRequest)
+                            (const QNetworkRequest &, QHttpMultiPart *);
 
     public :
         static NetworkAccessManager & instance();
@@ -19,6 +20,7 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
         static Q_INVOKABLE void setTimeout(size_t);
 
         static Q_INVOKABLE LocalHTTPServer * newLocalServer(quint16);
+        //static NetworkHTTPRequest request() { return NetworkHTTPRequest(); }
 
         // Convenient functions
         Q_INVOKABLE static NetworkHTTPReply *
@@ -34,6 +36,17 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
         put(const QUrl &, const QJsonObject & = QJsonObject(), 
             const QByteArray & = QByteArray(), bool = true);
 
+        Q_INVOKABLE static NetworkHTTPReply *
+        get(const NetworkHTTPRequest &, bool = true);
+        Q_INVOKABLE static NetworkHTTPReply *
+        head(const NetworkHTTPRequest &, bool = true);
+        Q_INVOKABLE static NetworkHTTPReply *
+        del(const NetworkHTTPRequest &, bool = true);
+        Q_INVOKABLE static NetworkHTTPReply *
+        post(const NetworkHTTPRequest &, bool = true);
+        Q_INVOKABLE static NetworkHTTPReply *
+        put(const NetworkHTTPRequest &, bool = true);
+
         Q_INVOKABLE static QByteArray queryString(const QJsonObject &);
         Q_INVOKABLE static QString url(QUrl, const QJsonObject &);
 
@@ -43,7 +56,7 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
         // Proxy sender
         template <class ... RequestParameters>
         NetworkHTTPReply * 
-        sendRequest(QNetworkReply * (QNetworkAccessManager::* senderFunction)(const RequestParameters & ...),
+        sendRequest(QNetworkReply * (QNetworkAccessManager::* senderFunction)(RequestParameters ...),
                     const RequestParameters & ... requestParameters,
                     bool asynchronous)
         {

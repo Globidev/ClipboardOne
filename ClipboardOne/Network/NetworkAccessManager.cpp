@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "NetworkAccessManager.h"
 
+#include "NetworkHTTPRequest.h"
 #include "NetworkHTTPReply.h"
 #include "LocalHTTPServer.h"
 
@@ -74,6 +75,43 @@ NetworkHTTPReply * NetworkAccessManager::put(const QUrl & url,
                                   payload,
                                   asynchronous);
 }
+
+NetworkHTTPReply * NetworkAccessManager::get(const NetworkHTTPRequest & request,
+                                             bool asynchronous)
+{
+    return get(request.url(), request.headers(), asynchronous);
+}
+
+NetworkHTTPReply * NetworkAccessManager::head(const NetworkHTTPRequest & request,
+                                              bool asynchronous)
+{
+    return head(request.url(), request.headers(), asynchronous);
+}
+
+NetworkHTTPReply * NetworkAccessManager::del(const NetworkHTTPRequest & request,
+                                             bool asynchronous)
+{
+    return del(request.url(), request.headers(), asynchronous);
+}
+
+NetworkHTTPReply * NetworkAccessManager::post(const NetworkHTTPRequest & request,
+                                              bool asynchronous)
+{
+    return instance().sendRequest(static_cast<MultiPartRequest>(&QNetworkAccessManager::post),
+                                  makeRequest(request.url(), request.headers()),
+                                  request.multiPart(),
+                                  asynchronous);
+}
+
+NetworkHTTPReply * NetworkAccessManager::put(const NetworkHTTPRequest & request,
+                                             bool asynchronous)
+{
+    return instance().sendRequest(static_cast<MultiPartRequest>(&QNetworkAccessManager::put),
+                                  makeRequest(request.url(), request.headers()),
+                                  request.multiPart(),
+                                  asynchronous);
+}
+
 
 QByteArray NetworkAccessManager::queryString(const QJsonObject & dict)
 {

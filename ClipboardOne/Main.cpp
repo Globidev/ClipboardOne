@@ -17,6 +17,7 @@
 #include "GUI/DynamicImageEngine.h"
 
 #include "Network/NetworkAccessManager.h"
+#include "Network/NetworkHTTPRequest.h"
 #include "Network/NetworkHTTPReply.h"
 #include "Network/LocalHTTPServer.h"
 
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
         MimeDataEntry,
         QNetworkReply,
         LocalHTTPServer,
+        NetworkHTTPRequest,
         NetworkHTTPReply
     >();
 

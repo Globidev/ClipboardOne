@@ -6,9 +6,11 @@ class NetworkHTTPRequest : public QObject, public QNetworkRequest
     Q_OBJECT
 
     public :
-        NetworkHTTPRequest(const QUrl & = QUrl(), const QJsonObject & = QJsonObject());
+        Q_INVOKABLE NetworkHTTPRequest(const QUrl & = QUrl(), 
+                                       const QJsonObject & = QJsonObject());
 
         QHttpMultiPart * multiPart() const;
+        QJsonObject headers() const;
 
         Q_INVOKABLE void setUrl(const QUrl &);
         Q_INVOKABLE void setHeaders(const QJsonObject &);
