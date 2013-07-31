@@ -10,7 +10,7 @@ You will need the following libraries :
 * Qt 5.1.0 or higher
 * Boost
 
-As this project uses [Redis](http://redis.io/), it is also required to have a the redis-server executable and a client library installed. The one used here is [hiredis](https://github.com/redis/hiredis) (see [hiredis win32](https://github.com/texnician/hiredis-win32) for Windows)
+As this project uses [Redis](http://redis.io/), it is also required to have the redis-server executable and a client library installed. The one used here is [hiredis](https://github.com/redis/hiredis) (see [hiredis win32](https://github.com/texnician/hiredis-win32) for Windows)
 
 ### Developing Plug-ins
 
