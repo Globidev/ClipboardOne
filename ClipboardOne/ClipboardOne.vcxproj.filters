@@ -23,16 +23,6 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{20d13d44-1b38-4f20-873c-337a66102a48}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{f2bc7937-59f3-42ba-8aab-f81bf7a238cb}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
     <Filter Include="Source Files\Core">
       <UniqueIdentifier>{1652d7af-2c05-4386-b201-89229490f599}</UniqueIdentifier>
     </Filter>
@@ -75,8 +65,18 @@
     <Filter Include="Source Files\Core\Redis">
       <UniqueIdentifier>{d55d1066-ffc7-4715-8acf-734a92496e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{9b240e00-ee1f-4911-b68a-c25692733e42}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{75d571a2-d5c8-4617-9b22-1c51d6ad222d}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
     <Filter Include="Generated Files\Release console">
-      <UniqueIdentifier>{007cc3ce-c6e2-4b76-bd25-730c668f269e}</UniqueIdentifier>
+      <UniqueIdentifier>{0498b4b3-6022-4ccd-8589-db537299a818}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -177,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="Core\Redis\RedisClient.cpp">
       <Filter>Source Files\Core\Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Encoding.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SystemTray.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -358,6 +361,15 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_GlobiSingleApplication.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Encoding.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Encoding.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_Encoding.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_DynamicSvgItem.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -384,18 +396,6 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_ClipboardWatcher.cpp">
       <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Encoding.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Encoding.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release console\moc_Encoding.cpp">
-      <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Encoding.cpp">
-      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
