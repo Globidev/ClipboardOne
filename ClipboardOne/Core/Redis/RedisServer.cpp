@@ -5,16 +5,22 @@
 
 #include "Core/Settings.h"
 
+#include "GUI/Logger/Logger.h"
+
 RedisServer::RedisServer()
 {
     QObject::connect(&process_, &QProcess::readyReadStandardOutput, [this]
     {
-        qDebug() << process_.readAllStandardOutput();
+        Logger::log(process_.readAllStandardOutput(), 
+                    LogEntry::Type::Output,
+                    LogEntry::Scope::Redis);
     });
 
     QObject::connect(&process_, &QProcess::readyReadStandardError, [this]
     {
-        qDebug() << process_.readAllStandardError();
+        Logger::log(process_.readAllStandardError(), 
+                    LogEntry::Type::Error,
+                    LogEntry::Scope::Redis);
     });
 
     process_.setWorkingDirectory(Settings::directory());

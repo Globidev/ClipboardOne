@@ -35,4 +35,7 @@
     <qresource prefix="/Dialogs">
         <file alias="QuestionMark">Icons/QuestionMark2.svg</file>
     </qresource>
+    <qresource prefix="/Redis">
+        <file alias="Redis">Icons/redis.png</file>
+    </qresource>
 </RCC>

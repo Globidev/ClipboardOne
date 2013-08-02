@@ -9,6 +9,7 @@
 #include "GUI/SystemTray.h"
 #include "GUI/DynamicImageEngine.h"
 #include "GUI/ImageLoader.h"
+#include "GUI/Logger/Logger.h"
 
 #include "Network/NetworkAccessManager.h"
 
@@ -21,7 +22,10 @@ QMLEnvironment::QMLEnvironment() : QObject(),
 {
     QObject::connect(engine_.get(), &QQmlEngine::warnings, [](const QList<QQmlError> & warnings)
     {
-        qDebug() << warnings;
+        for(auto & error : warnings)
+            Logger::log(error.toString(), 
+                        LogEntry::Type::Warning,
+                        LogEntry::Scope::Plugin);
     });
 
     qAddPostRoutine(clean);
@@ -98,8 +102,9 @@ void QMLEnvironment::onComponentReady(QQmlComponent * component,
 void QMLEnvironment::onComponentError(QQmlComponent * component,
                                       const QUrl & url)
 {
-    qDebug() << "Failed to create plugin"
-             << component->errors();
+    Logger::log("Failed to create plugin : " + component->errorString(), 
+                LogEntry::Type::Error,
+                LogEntry::Scope::Plugin);
     component->deleteLater();
     instance().engine_->clearComponentCache();
 }

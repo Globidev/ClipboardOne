@@ -80,6 +80,12 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Source Files\GUI\Logger">
+      <UniqueIdentifier>{c099bb50-3c92-47f4-899f-a1d12743fd20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\Logger">
+      <UniqueIdentifier>{193cb5ff-d556-4503-8efb-f4d242081c8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -397,6 +403,21 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_ClipboardWatcher.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\Logger\Logger.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LoggerTable.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LoggerDelegate.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LoggerModel.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LogEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -434,6 +455,24 @@
     </ClInclude>
     <ClInclude Include="Core\Redis\RedisServer.h">
       <Filter>Header Files\Core\Redis</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Logger\Logger.h">
+      <Filter>Header Files\GUI\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Logger\LoggerTable.h">
+      <Filter>Header Files\GUI\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Logger\LoggerModel.h">
+      <Filter>Header Files\GUI\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Logger\LoggerDelegate.h">
+      <Filter>Header Files\GUI\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_Logger.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Logger\LogEntry.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -528,6 +567,9 @@
     </CustomBuild>
     <CustomBuild Include="Core\Encoding.h">
       <Filter>Header Files\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\Designer\Logger.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

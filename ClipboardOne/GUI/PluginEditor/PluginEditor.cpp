@@ -4,7 +4,8 @@
 #include "PluginTable.h"
 
 #include "GUI/Dialogs/AddPluginDialog.h"
-#include "Gui/DynamicImageEngine.h"
+#include "GUI/DynamicImageEngine.h"
+#include "GUI/Logger/Logger.h"
 
 #include "QML/QMLEnvironment.h"
 
@@ -18,6 +19,10 @@ PluginEditor::PluginEditor(QWidget * parent) : QWidget(parent),
     QObject::connect(ui_->addPlugin, 
                      &QPushButton::clicked,
                      this, &PluginEditor::addNewPlugin);
+
+    QObject::connect(ui_->showLogs,
+                     &QPushButton::clicked,
+                     &Logger::instance(), &QWidget::show);
 
     QObject::connect(&DynamicImageEngine::instance(), 
                      &DynamicImageEngine::maskChanged,
