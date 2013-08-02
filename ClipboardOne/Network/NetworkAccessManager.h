@@ -20,7 +20,8 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
         static Q_INVOKABLE void setTimeout(size_t);
 
         static Q_INVOKABLE LocalHTTPServer * newLocalServer(quint16);
-        //static NetworkHTTPRequest request() { return NetworkHTTPRequest(); }
+        static Q_INVOKABLE NetworkHTTPRequest *
+        request(const QUrl & = QUrl(), const QJsonObject & = QJsonObject());
 
         // Convenient functions
         Q_INVOKABLE static NetworkHTTPReply *
@@ -37,15 +38,15 @@ class NetworkAccessManager : public QNetworkAccessManager, boost::noncopyable
             const QByteArray & = QByteArray(), bool = true);
 
         Q_INVOKABLE static NetworkHTTPReply *
-        get(const NetworkHTTPRequest &, bool = true);
+        getRequest(NetworkHTTPRequest *, bool = true);
         Q_INVOKABLE static NetworkHTTPReply *
-        head(const NetworkHTTPRequest &, bool = true);
+        headRequest(NetworkHTTPRequest *, bool = true);
         Q_INVOKABLE static NetworkHTTPReply *
-        del(const NetworkHTTPRequest &, bool = true);
+        delRequest(NetworkHTTPRequest *, bool = true);
         Q_INVOKABLE static NetworkHTTPReply *
-        post(const NetworkHTTPRequest &, bool = true);
+        postRequest(NetworkHTTPRequest *, bool = true);
         Q_INVOKABLE static NetworkHTTPReply *
-        put(const NetworkHTTPRequest &, bool = true);
+        putRequest(NetworkHTTPRequest *, bool = true);
 
         Q_INVOKABLE static QByteArray queryString(const QJsonObject &);
         Q_INVOKABLE static QString url(QUrl, const QJsonObject &);

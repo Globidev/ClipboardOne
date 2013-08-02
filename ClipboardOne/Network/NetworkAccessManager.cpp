@@ -27,6 +27,12 @@ LocalHTTPServer * NetworkAccessManager::newLocalServer(quint16 port)
     return new LocalHTTPServer(port, &instance());
 }
 
+NetworkHTTPRequest * NetworkAccessManager::request(const QUrl & url,
+                                                   const QJsonObject & headers)
+{
+    return new NetworkHTTPRequest(url, headers);
+}
+
 NetworkHTTPReply * NetworkAccessManager::get(const QUrl & url,
                                              const QJsonObject & headers,
                                              bool asynchronous)
@@ -76,39 +82,39 @@ NetworkHTTPReply * NetworkAccessManager::put(const QUrl & url,
                                   asynchronous);
 }
 
-NetworkHTTPReply * NetworkAccessManager::get(const NetworkHTTPRequest & request,
-                                             bool asynchronous)
+NetworkHTTPReply * NetworkAccessManager::getRequest(NetworkHTTPRequest * request,
+                                                    bool asynchronous)
 {
-    return get(request.url(), request.headers(), asynchronous);
+    return get(request->url(), request->headers(), asynchronous);
 }
 
-NetworkHTTPReply * NetworkAccessManager::head(const NetworkHTTPRequest & request,
-                                              bool asynchronous)
+NetworkHTTPReply * NetworkAccessManager::headRequest(NetworkHTTPRequest * request,
+                                                     bool asynchronous)
 {
-    return head(request.url(), request.headers(), asynchronous);
+    return head(request->url(), request->headers(), asynchronous);
 }
 
-NetworkHTTPReply * NetworkAccessManager::del(const NetworkHTTPRequest & request,
-                                             bool asynchronous)
+NetworkHTTPReply * NetworkAccessManager::delRequest(NetworkHTTPRequest * request,
+                                                    bool asynchronous)
 {
-    return del(request.url(), request.headers(), asynchronous);
+    return del(request->url(), request->headers(), asynchronous);
 }
 
-NetworkHTTPReply * NetworkAccessManager::post(const NetworkHTTPRequest & request,
-                                              bool asynchronous)
+NetworkHTTPReply * NetworkAccessManager::postRequest(NetworkHTTPRequest * request,
+                                                     bool asynchronous)
 {
     return instance().sendRequest(static_cast<MultiPartRequest>(&QNetworkAccessManager::post),
-                                  makeRequest(request.url(), request.headers()),
-                                  request.multiPart(),
+                                  makeRequest(request->url(), request->headers()),
+                                  request->multiPart(),
                                   asynchronous);
 }
 
-NetworkHTTPReply * NetworkAccessManager::put(const NetworkHTTPRequest & request,
-                                             bool asynchronous)
+NetworkHTTPReply * NetworkAccessManager::putRequest(NetworkHTTPRequest * request,
+                                                    bool asynchronous)
 {
     return instance().sendRequest(static_cast<MultiPartRequest>(&QNetworkAccessManager::put),
-                                  makeRequest(request.url(), request.headers()),
-                                  request.multiPart(),
+                                  makeRequest(request->url(), request->headers()),
+                                  request->multiPart(),
                                   asynchronous);
 }
 

@@ -46,7 +46,8 @@ void NetworkHTTPRequest::addPart(const QJsonObject & headers,
     multiPart_->append(part);
 }
 
-void NetworkHTTPRequest::setContentType(QHttpMultiPart::ContentType type)
+void NetworkHTTPRequest::setContentType(int type)
 {
-    multiPart_->setContentType(type);
+    qDebug() << ((QHttpMultiPart::ContentType)type == QHttpMultiPart::FormDataType);
+    multiPart_->setContentType((QHttpMultiPart::ContentType)type);
 }
