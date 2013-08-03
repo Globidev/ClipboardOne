@@ -418,6 +418,15 @@
     <ClCompile Include="GUI\Logger\LogEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Logger.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Logger.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_Logger.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -455,9 +464,6 @@
     </ClInclude>
     <ClInclude Include="Core\Redis\RedisServer.h">
       <Filter>Header Files\Core\Redis</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\Logger\Logger.h">
-      <Filter>Header Files\GUI\Logger</Filter>
     </ClInclude>
     <ClInclude Include="GUI\Logger\LoggerTable.h">
       <Filter>Header Files\GUI\Logger</Filter>
@@ -570,6 +576,9 @@
     </CustomBuild>
     <CustomBuild Include="GUI\Designer\Logger.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\Logger\Logger.h">
+      <Filter>Header Files\GUI\Logger</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

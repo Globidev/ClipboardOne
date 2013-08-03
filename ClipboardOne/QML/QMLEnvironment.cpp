@@ -37,7 +37,8 @@ QMLEnvironment::QMLEnvironment() : QObject(),
         NetworkAccessManager,
         DynamicImageEngine,
         QMLUiTools,
-        Encoding
+        Encoding,
+        Logger
     >();
 }
 

@@ -16,6 +16,8 @@ Logger::Logger() : QWidget(),
     ui_(new Ui::UiLogger),
     table_(new LoggerTable(this))
 {
+    setObjectName(LOGGER_OBJECT_NAME);
+
     ui_->setupUi(this);
     ui_->verticalLayout->addWidget(table_.get());
 
@@ -40,4 +42,19 @@ void Logger::log(const QString & message,
                  LogEntry::Scope scope)
 {
     instance().table_->model()->addEntry(message, type, scope);
+}
+
+void Logger::log(const QString & message)
+{
+    log(message, LogEntry::Type::Output, LogEntry::Scope::Plugin);
+}
+
+void Logger::warning(const QString & message)
+{
+    log(message, LogEntry::Type::Warning, LogEntry::Scope::Plugin);
+}
+
+void Logger::error(const QString & message)
+{
+    log(message, LogEntry::Type::Error, LogEntry::Scope::Plugin);
 }

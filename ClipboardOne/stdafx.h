@@ -73,6 +73,8 @@ Constant IS_QML_LOCAL_FILE = [](const QUrl & url)
     return fileInfo.suffix().toLower() == QML_FILE_EXTENSION;
 };
 
+typedef std::function<void ()> DefaultFunctor;
+
 // Shortcuts
 typedef std::set<int> Shortcut;
     // For serialization

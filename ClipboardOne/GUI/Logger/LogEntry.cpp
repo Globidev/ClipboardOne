@@ -4,7 +4,7 @@
 LogEntry::LogEntry(const QString & message, 
                    Type type, 
                    Scope scope) :
-    message(message),
+    message(message.trimmed()),
     type(type),
     scope(scope)
 {

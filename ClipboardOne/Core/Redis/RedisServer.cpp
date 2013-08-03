@@ -9,19 +9,14 @@
 
 RedisServer::RedisServer()
 {
-    QObject::connect(&process_, &QProcess::readyReadStandardOutput, [this]
-    {
-        Logger::log(process_.readAllStandardOutput(), 
-                    LogEntry::Type::Output,
-                    LogEntry::Scope::Redis);
-    });
+    ByteArrayGetter readStdout = std::bind(&QProcess::readAllStandardOutput, &process_);
+    ByteArrayGetter readStderr = std::bind(&QProcess::readAllStandardError, &process_);
 
-    QObject::connect(&process_, &QProcess::readyReadStandardError, [this]
-    {
-        Logger::log(process_.readAllStandardError(), 
-                    LogEntry::Type::Error,
-                    LogEntry::Scope::Redis);
-    });
+    DefaultFunctor logStdout = std::bind(logOutput, readStdout, LogEntry::Type::Output);
+    DefaultFunctor logStderr = std::bind(logOutput, readStderr, LogEntry::Type::Error);
+
+    QObject::connect(&process_, &QProcess::readyReadStandardOutput, logStdout);
+    QObject::connect(&process_, &QProcess::readyReadStandardError, logStderr);
 
     process_.setWorkingDirectory(Settings::directory());
 
@@ -58,3 +53,13 @@ bool RedisServer::command(const QString & commandString)
 {
     return instance().master_->sendCommand(commandString);
 }
+
+void RedisServer::logOutput(const ByteArrayGetter & messageGetter,
+                            LogEntry::Type type)
+{
+    for(auto & output : messageGetter().split('\n'))
+    {
+        if(output.size())
+            Logger::log(output.mid(25), type, LogEntry::Scope::Redis);
+    }
+};

@@ -25,6 +25,11 @@ void LoggerModel::initRoleMap()
         return columnData[index.column()](entries_.at(index.row()).get());
     };
 
+    data_[Qt::TextAlignmentRole] = [](const QModelIndex & index)
+    {
+        return Qt::AlignVCenter;
+    };
+
     data_[Qt::ForegroundRole] = [this](const QModelIndex & index)
     {
         return index.column() == 0 ?
