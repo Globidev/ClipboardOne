@@ -20,17 +20,11 @@ AddPluginDialog::AddPluginDialog(QWidget * parent) : QDialog(parent),
 
     QObject::connect(ui_->localBrowse, &QPushButton::clicked, [this] { onBrowse(); });
 
-    auto updateIcon = [this] 
-    { 
-        setWindowIcon(DynamicImageEngine::colored(ADD_PLUGIN_DIALOG_WINDOW_ICON)); 
-        ui_->ok->setIcon(DynamicImageEngine::colored(ADD_PLUGIN_DIALOG_OK_ICON));
-        ui_->cancel->setIcon(DynamicImageEngine::colored(ADD_PLUGIN_DIALOG_CANCEL_ICON));
-    };
-
     QObject::connect(&DynamicImageEngine::instance(), 
                      &DynamicImageEngine::maskChanged,
-                     updateIcon);
-    updateIcon();
+                     this, &AddPluginDialog::updateIcons,
+                     Qt::QueuedConnection);
+    updateIcons();
 }
 
 void AddPluginDialog::onBrowse()
@@ -47,4 +41,11 @@ void AddPluginDialog::accept()
     else if(ui_->localGroupbox->isChecked() && !ui_->localUrl->text().isEmpty())
         QMLEnvironment::addPlugin(QUrl::fromLocalFile(ui_->localUrl->text()));
     QDialog::accept();
+}
+
+void AddPluginDialog::updateIcons()
+{
+    setWindowIcon(DynamicImageEngine::colored(ADD_PLUGIN_DIALOG_WINDOW_ICON));
+    ui_->ok->setIcon(DynamicImageEngine::colored(ADD_PLUGIN_DIALOG_OK_ICON));
+    ui_->cancel->setIcon(DynamicImageEngine::colored(ADD_PLUGIN_DIALOG_CANCEL_ICON));
 }

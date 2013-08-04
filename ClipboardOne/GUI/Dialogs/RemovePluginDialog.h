@@ -15,6 +15,8 @@ class RemovePluginDialog : public QDialog
         virtual Q_SLOT void accept();
 
     private :
+        Q_SLOT void updateIcons();
+
         std::unique_ptr<Ui::UiRemovePluginDialog> ui_;
         QMLPlugin * plugin_;
 };

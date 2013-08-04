@@ -13,6 +13,8 @@ class AddPluginDialog : public QDialog
     private :
         void onBrowse();
 
+        Q_SLOT void updateIcons();
+
         std::unique_ptr<Ui::UiAddPluginDialog> ui_;
 };
 
