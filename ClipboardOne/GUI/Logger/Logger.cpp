@@ -27,8 +27,7 @@ Logger::Logger() : QWidget(),
                      &DynamicImageEngine::maskChanged,
                      [this]()
     {
-        setWindowIcon(DynamicImageEngine::colored(":/SystemTray/Scissors"));
-        table_->update();
+        setWindowIcon(DynamicImageEngine::colored(LOGGER_WINDOW_ICON));
     });
 }
 

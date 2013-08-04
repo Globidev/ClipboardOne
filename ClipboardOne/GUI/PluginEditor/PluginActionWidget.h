@@ -2,25 +2,9 @@
 #define PLUGINACTIONWIDGET_H
 
 #include "ui_PluginActionWidget.h"
-#include "ui_RemovePluginDialog.h"
 
 class QMLPlugin;
-
-class RemovePluginDialog : public QDialog
-{
-    Q_OBJECT
-
-    public :
-        RemovePluginDialog(QMLPlugin *, QWidget * = nullptr);
-
-        virtual Q_SLOT void accept();
-
-    private :
-        std::unique_ptr<Ui::UiRemovePluginDialog> ui_;
-        QMLPlugin * plugin_;
-};
-
-Constant REMOVE_PLUGIN_QUESTION_ICON = ":/Dialogs/QuestionMark";
+class RemovePluginDialog;
 
 class PluginActionWidget : public QWidget
 {

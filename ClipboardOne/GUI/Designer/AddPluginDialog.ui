@@ -115,7 +115,7 @@
            <string>Browse...</string>
           </property>
           <property name="icon">
-           <iconset resource="Icons.qrc">
+           <iconset resource="../../Icons.qrc">
             <normaloff>:/AddPluginDialog/Browse</normaloff>:/AddPluginDialog/Browse</iconset>
           </property>
           <property name="iconSize">
@@ -192,7 +192,7 @@
         <string>Ok</string>
        </property>
        <property name="icon">
-        <iconset resource="Icons.qrc">
+        <iconset resource="../../Icons.qrc">
          <normaloff>:/AddPluginDialog/Ok</normaloff>:/AddPluginDialog/Ok</iconset>
        </property>
        <property name="iconSize">
@@ -221,7 +221,7 @@
         <string>Cancel</string>
        </property>
        <property name="icon">
-        <iconset resource="Icons.qrc">
+        <iconset resource="../../Icons.qrc">
          <normaloff>:/AddPluginDialog/Cancel</normaloff>:/AddPluginDialog/Cancel</iconset>
        </property>
        <property name="iconSize">
@@ -252,7 +252,7 @@
   <tabstop>webGroupbox</tabstop>
  </tabstops>
  <resources>
-  <include location="Icons.qrc"/>
+  <include location="../../Icons.qrc"/>
  </resources>
  <connections>
   <connection>

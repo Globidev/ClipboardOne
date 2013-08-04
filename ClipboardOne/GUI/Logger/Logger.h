@@ -28,5 +28,6 @@ class Logger : public QWidget, boost::noncopyable
 };
 
 Constant LOGGER_OBJECT_NAME = "Logger";
+Constant LOGGER_WINDOW_ICON = ":/PluginEditor/Logs";
 
 #endif // LOGGER_H

@@ -1,29 +1,10 @@
 #include "stdafx.h"
 #include "PluginActionWidget.h"
 
+#include "GUI/Dialogs/RemovePluginDialog.h"
 #include "GUI/DynamicImageEngine.h"
 
-#include "QML/QMLEnvironment.h"
 #include "QML/QMLPlugin.h"
-
-RemovePluginDialog::RemovePluginDialog(QMLPlugin * plugin, QWidget * parent) : QDialog(parent),
-    ui_(new Ui::UiRemovePluginDialog),
-    plugin_(plugin)
-{
-    ui_->setupUi(this);
-    setWindowModality(Qt::WindowModal);
-
-    ui_->label->setText(ui_->label->text().arg(plugin->name()));
-    ui_->icon->setIcon(DynamicImageEngine::colored(REMOVE_PLUGIN_QUESTION_ICON));
-}
-
-void RemovePluginDialog::accept()
-{
-    bool removeSettings = ui_->removeSettings->isChecked();
-    QMLEnvironment::removePlugin(plugin_, removeSettings);
-
-    QDialog::accept();
-}
 
 PluginActionWidget::PluginActionWidget(QMLPlugin * plugin, 
                                        QWidget * parent) : QWidget(parent),

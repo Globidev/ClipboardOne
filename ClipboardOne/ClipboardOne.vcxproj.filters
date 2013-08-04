@@ -427,6 +427,18 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_Logger.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\Dialogs\RemovePluginDialog.cpp">
+      <Filter>Source Files\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_RemovePluginDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_RemovePluginDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_RemovePluginDialog.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -579,6 +591,9 @@
     </CustomBuild>
     <CustomBuild Include="GUI\Logger\Logger.h">
       <Filter>Header Files\GUI\Logger</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\Dialogs\RemovePluginDialog.h">
+      <Filter>Header Files\GUI\Dialogs</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

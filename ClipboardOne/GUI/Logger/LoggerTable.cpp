@@ -9,7 +9,13 @@ LoggerTable::LoggerTable(QWidget * parent) : QTableView(parent),
     delegate_(new LoggerDelegate)
 {
     horizontalHeader()->setStretchLastSection(true);
+    //horizontalHeader()->setSortIndicatorShown(true);
+
     verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+    std::function<void (int, Qt::SortOrder)> sort = 
+        std::bind(&QAbstractItemModel::sort, model(), _1,_2);
+    QObject::connect(horizontalHeader(), &QHeaderView::sortIndicatorChanged, sort);
 
     setModel(model_.get());
     setItemDelegate(delegate_.get());
