@@ -57,3 +57,9 @@ void Logger::error(const QString & message)
 {
     log(message, LogEntry::Type::Error, LogEntry::Scope::Plugin);
 }
+
+void Logger::forceShow()
+{
+    show();
+    setWindowState(Qt::WindowActive);
+}

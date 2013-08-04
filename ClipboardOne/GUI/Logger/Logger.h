@@ -19,6 +19,8 @@ class Logger : public QWidget, boost::noncopyable
         Q_INVOKABLE void warning(const QString &);
         Q_INVOKABLE void error(const QString &);
 
+        Q_SLOT void forceShow();
+
     private :
         Logger();
         static void clean();

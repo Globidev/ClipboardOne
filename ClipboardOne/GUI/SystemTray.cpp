@@ -52,15 +52,17 @@ void SystemTray::alert(const QString & message,
 void SystemTray::initContextMenu()
 {
     auto pluginAction = new QAction(SYSTEM_TRAY_PLUGINS, contextMenu_.get());
-    QObject::connect(pluginAction, &QAction::triggered, [this] { pluginEditor_->show(); });
+    QObject::connect(pluginAction, &QAction::triggered,
+                     pluginEditor_.get(), &PluginEditor::forceShow);
     contextMenu_->addAction(pluginAction);
 
     auto optionsAction = new QAction(SYSTEM_TRAY_OPTIONS, contextMenu_.get());
-    QObject::connect(optionsAction, &QAction::triggered, [this] { colorDialog_->show(); });
+    QObject::connect(optionsAction, &QAction::triggered, 
+                     colorDialog_.get(), &QColorDialog::show);
     contextMenu_->addAction(optionsAction);
 
     auto quitAction = new QAction(SYSTEM_TRAY_EXIT, contextMenu_.get());
-    QObject::connect(quitAction, &QAction::triggered, [] { QApplication::quit(); });
+    QObject::connect(quitAction, &QAction::triggered, QApplication::quit);
     contextMenu_->addAction(quitAction);
 
     QObject::connect(&DynamicImageEngine::instance(), &DynamicImageEngine::maskChanged, [=]

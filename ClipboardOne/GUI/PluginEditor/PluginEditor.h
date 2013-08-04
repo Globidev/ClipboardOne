@@ -14,6 +14,7 @@ class PluginEditor : public QWidget
         PluginEditor(QWidget * = nullptr);
 
         Q_SLOT void addNewPlugin();
+        Q_SLOT void forceShow();
 
     protected :
         virtual void dragEnterEvent(QDragEnterEvent *);

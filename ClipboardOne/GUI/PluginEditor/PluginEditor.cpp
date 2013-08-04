@@ -22,7 +22,7 @@ PluginEditor::PluginEditor(QWidget * parent) : QWidget(parent),
 
     QObject::connect(ui_->showLogs,
                      &QPushButton::clicked,
-                     &Logger::instance(), &QWidget::show);
+                     &Logger::instance(), &Logger::forceShow);
 
     QObject::connect(&DynamicImageEngine::instance(), 
                      &DynamicImageEngine::maskChanged,
@@ -35,6 +35,12 @@ void PluginEditor::addNewPlugin()
 {
     addPluginDialog_.reset(new AddPluginDialog(this));
     addPluginDialog_->show();
+}
+
+void PluginEditor::forceShow()
+{
+    show();
+    setWindowState(Qt::WindowActive);
 }
 
 void PluginEditor::updateIcons()
