@@ -18,12 +18,12 @@ class GlobiSingleApplication : public QApplication
         Q_SLOT void onNewConnection();
         Q_SLOT void onReadyRead();
 
-        QString _appId;
+        QString appId_;
         
-        QLocalSocket _appSocket, * _otherAppSocket;
-        QLocalServer _appServer;
-        QTextStream _outStream;
-        bool _isAlreadyRunning;
+        QLocalSocket appSocket_, * otherAppSocket_;
+        QLocalServer appServer_;
+        QTextStream outStream_;
+        bool isAlreadyRunning_;
 };
 
 #endif // GLOBISINGLEAPPLICATION_H
