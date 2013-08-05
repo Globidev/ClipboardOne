@@ -2,43 +2,43 @@
 #include "GlobiSingleApplication.h"
 
 GlobiSingleApplication::GlobiSingleApplication(int & argc, char ** argv, const QString & id) : 
-    QApplication(argc, argv), _appId(id), _outStream(&_appSocket)
+    QApplication(argc, argv), appId_(id), outStream_(&appSocket_)
 {
-    _appSocket.connectToServer(_appId);
-    _isAlreadyRunning = _appSocket.waitForConnected();
+    appSocket_.connectToServer(appId_);
+    isAlreadyRunning_ = appSocket_.waitForConnected();
 
-    _appServer.listen(_appId);
-    QObject::connect(&_appServer, &QLocalServer::newConnection, 
+    appServer_.listen(appId_);
+    QObject::connect(&appServer_, &QLocalServer::newConnection, 
                      this, &GlobiSingleApplication::onNewConnection);
 }
 
 GlobiSingleApplication::~GlobiSingleApplication()
 {
-    _appServer.close();
+    appServer_.close();
 }
 
 bool GlobiSingleApplication::isAlreadyRunning() const
 {
-    return _isAlreadyRunning;
+    return isAlreadyRunning_;
 }
 
 void GlobiSingleApplication::onNewConnection()
 {
-    _otherAppSocket = _appServer.nextPendingConnection();
-    if(_otherAppSocket)
+    otherAppSocket_ = appServer_.nextPendingConnection();
+    if(otherAppSocket_)
     {
-        QObject::connect(_otherAppSocket, &QLocalSocket::readyRead,
+        QObject::connect(otherAppSocket_, &QLocalSocket::readyRead,
                          this, &GlobiSingleApplication::onReadyRead);
     }
 }
 
 void GlobiSingleApplication::sendMessage(const QString & message)
 {
-    _outStream << message;
-    _outStream.flush();
+    outStream_ << message;
+    outStream_.flush();
 }
 
 void GlobiSingleApplication::onReadyRead()
 {
-    emit messageRceived(_otherAppSocket->readAll());
+    Q_EMIT messageRceived(otherAppSocket_->readAll());
 }

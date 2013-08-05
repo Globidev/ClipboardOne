@@ -25,20 +25,13 @@ int main(int argc, char *argv[])
 {
     qRegisterMetaTypeStreamOperators<Shortcut>();
 
-    QMLEnvironment::registerComponents
-    <
-        QMLPlugin,
-        QMLUi,
-        QMLClipboard,
-        QMLSettings,
-        QQmlPropertyMap,
-        QWidget,
-        QLayout,
-        MimeDataEntry,
-        QNetworkReply,
-        LocalHTTPServer,
-        NetworkHTTPRequest,
-        NetworkHTTPReply
+    QMLEnvironment::registerComponents <
+        // QML Components
+        QMLPlugin, QMLUi, QMLClipboard, QMLSettings,
+        // Qt classes
+        QQmlPropertyMap, QWidget, QLayout, QNetworkReply,
+        // Exposed classes
+        MimeDataEntry, LocalHTTPServer, NetworkHTTPRequest, NetworkHTTPReply
     >();
 
     GlobiSingleApplication app(argc, argv, APPLICATION_NAME);
