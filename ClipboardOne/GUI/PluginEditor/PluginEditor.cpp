@@ -39,8 +39,7 @@ void PluginEditor::addNewPlugin()
 
 void PluginEditor::forceShow()
 {
-    show();
-    setWindowState(Qt::WindowActive);
+    forceShowWindow(this);
 }
 
 void PluginEditor::updateIcons()

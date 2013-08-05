@@ -83,6 +83,7 @@ QDataStream & operator<<(QDataStream &, const Shortcut &);
 QDataStream & operator>>(QDataStream &, Shortcut &);
 
 // Global utilities
+    // Containers
 template <class Value>
 QVariantMap pairListToMap(const QList<QPair<QString, Value>> & list)
 {
@@ -90,6 +91,14 @@ QVariantMap pairListToMap(const QList<QPair<QString, Value>> & list)
     for(const auto & pair : list) 
         map.insert(pair.first, QVariant::fromValue(pair.second));
     return map;
+}
+
+    // Force window to be displayed
+static void forceShowWindow(QWidget * window)
+{
+    window->show();
+    window->setWindowState(window->windowState() & ~Qt::WindowMinimized | Qt::WindowActive);
+    window->activateWindow();
 }
 
     // Generic synchronous function

@@ -60,6 +60,5 @@ void Logger::error(const QString & message)
 
 void Logger::forceShow()
 {
-    show();
-    setWindowState(Qt::WindowActive);
+    forceShowWindow(this);
 }

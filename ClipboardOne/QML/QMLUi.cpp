@@ -78,9 +78,5 @@ void QMLUi::addUiElement(QObject * object)
 
 void QMLUi::show()
 {
-    if(loadedUi_)
-    {
-        loadedUi_->show();
-        loadedUi_->setWindowState(Qt::WindowActive);
-    }
+    if(loadedUi_) forceShowWindow(loadedUi_.get());
 }
