@@ -163,3 +163,11 @@ class is_singleton
     public :
         Constant value = HasInstance::value;
 };
+
+#ifdef Q_OS_WIN
+static int startProcessElevated(const QString & program, const QStringList & args)
+{
+    return (int)::ShellExecuteA(0, "runas", program.toUtf8().constData(), 
+                                args.join(" ").toUtf8().constData(), 0, SW_HIDE);
+}
+#endif

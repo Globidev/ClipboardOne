@@ -461,6 +461,7 @@
     <ClCompile Include="GUI\Logger\LoggerDelegate.cpp" />
     <ClCompile Include="GUI\Logger\LoggerModel.cpp" />
     <ClCompile Include="GUI\Logger\LoggerTable.cpp" />
+    <ClCompile Include="GUI\OptionDialog\OptionDialog.cpp" />
     <ClCompile Include="GUI\PluginEditor\PluginActionWidget.cpp" />
     <ClCompile Include="GUI\PluginEditor\PluginEditor.cpp" />
     <ClCompile Include="GUI\PluginEditor\PluginTable.cpp" />
@@ -631,6 +632,7 @@
     </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_AddPluginDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_Logger.h" />
+    <ClInclude Include="GeneratedFiles\ui_OptionDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_PluginActionWidget.h" />
     <ClInclude Include="GeneratedFiles\ui_PluginEditor.h" />
     <ClInclude Include="GeneratedFiles\ui_RemovePluginDialog.h" />
@@ -765,6 +767,7 @@
     <ClInclude Include="GUI\Logger\LoggerDelegate.h" />
     <ClInclude Include="GUI\Logger\LoggerModel.h" />
     <ClInclude Include="GUI\Logger\LoggerTable.h" />
+    <ClInclude Include="GUI\OptionDialog\OptionDialog.h" />
     <ClInclude Include="GUI\PluginEditor\PluginTable.h" />
     <ClInclude Include="GUI\PluginEditor\PluginTableDelegate.h" />
     <CustomBuild Include="GUI\PluginEditor\PluginTableModel.h">
@@ -945,6 +948,20 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release console|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
     </CustomBuild>
     <CustomBuild Include="GUI\Designer\Logger.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release console|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release console|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release console|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release console|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+    <CustomBuild Include="GUI\Designer\OptionDialog.ui">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>

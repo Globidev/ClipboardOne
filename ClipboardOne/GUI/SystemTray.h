@@ -2,6 +2,7 @@
 #define SYSTEMTRAY_H
 
 class PluginEditor;
+class OptionDialog;
 
 class SystemTray : public QSystemTrayIcon, boost::noncopyable
 {
@@ -24,8 +25,7 @@ class SystemTray : public QSystemTrayIcon, boost::noncopyable
         std::unique_ptr<QMenu> contextMenu_;
 
         std::unique_ptr<PluginEditor> pluginEditor_;
-
-        std::unique_ptr<QColorDialog> colorDialog_;
+        std::unique_ptr<OptionDialog> optionDialog_;
 };
 
 Constant SYSTEM_TRAY_OBJECT_NAME = "SystemTray";

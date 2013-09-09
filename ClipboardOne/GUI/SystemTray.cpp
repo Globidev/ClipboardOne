@@ -3,7 +3,8 @@
 
 #include "DynamicImageEngine.h"
 
-#include "GUI/PluginEditor/PluginEditor.h"
+#include "PluginEditor/PluginEditor.h"
+#include "OptionDialog/OptionDialog.h"
 
 SystemTray & SystemTray::instance()
 {
@@ -13,7 +14,7 @@ SystemTray & SystemTray::instance()
 
 SystemTray::SystemTray() : QSystemTrayIcon(),
     contextMenu_(new QMenu),
-    colorDialog_(new QColorDialog)
+    optionDialog_(new OptionDialog)
 {
     setObjectName(SYSTEM_TRAY_OBJECT_NAME);
     setToolTip(SYSTEM_TRAY_BASE_TOOLTIP);
@@ -27,10 +28,6 @@ SystemTray::SystemTray() : QSystemTrayIcon(),
                      &DynamicImageEngine::maskChanged,
                      this, &SystemTray::updateIcon);
 
-    QObject::connect(colorDialog_.get(), 
-                     &QColorDialog::currentColorChanged, 
-                     &DynamicImageEngine::setMaskColor);
-
     qAddPostRoutine(clean);
 }
 
@@ -39,7 +36,7 @@ void SystemTray::clean()
     instance().contextMenu_.release(); // LEAK (use reset when fixed)
                                        // QT BUG : https://bugreports.qt-project.org/browse/QTBUG-30756
     instance().pluginEditor_.reset();
-    instance().colorDialog_.reset();
+    instance().optionDialog_.reset();
 }
 
 void SystemTray::alert(const QString & message, 
@@ -58,7 +55,7 @@ void SystemTray::initContextMenu()
 
     auto optionsAction = new QAction(SYSTEM_TRAY_OPTIONS, contextMenu_.get());
     QObject::connect(optionsAction, &QAction::triggered, 
-                     colorDialog_.get(), &QColorDialog::show);
+                     optionDialog_.get(), &OptionDialog::forceShow);
     contextMenu_->addAction(optionsAction);
 
     auto quitAction = new QAction(SYSTEM_TRAY_EXIT, contextMenu_.get());

@@ -86,6 +86,12 @@
     <Filter Include="Header Files\GUI\Logger">
       <UniqueIdentifier>{193cb5ff-d556-4503-8efb-f4d242081c8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI\OptionDialog">
+      <UniqueIdentifier>{94cf51b5-7819-4d2e-8356-2bfa5ae590eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\OptionDialog">
+      <UniqueIdentifier>{98b7298b-88b2-428c-8e7b-109e46f1c95d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -439,6 +445,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_RemovePluginDialog.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\OptionDialog\OptionDialog.cpp">
+      <Filter>Source Files\GUI\OptionDialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -491,6 +500,12 @@
     </ClInclude>
     <ClInclude Include="GUI\Logger\LogEntry.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\OptionDialog\OptionDialog.h">
+      <Filter>Header Files\GUI\OptionDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_OptionDialog.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -594,6 +609,9 @@
     </CustomBuild>
     <CustomBuild Include="GUI\Dialogs\RemovePluginDialog.h">
       <Filter>Header Files\GUI\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GUI\Designer\OptionDialog.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
