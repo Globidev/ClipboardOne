@@ -99,7 +99,7 @@ void LoggerModel::addEntry(const QString & message,
                            LogEntry::Type type, 
                            LogEntry::Scope scope)
 {
-    beginInsertRows(QModelIndex(), entries_.size(), entries_.size());
-    entries_.emplace_back(new LogEntry(message, type, scope));
+    beginInsertRows(QModelIndex(), 0, 0);
+    entries_.emplace(entries_.begin(), new LogEntry(message, type, scope));
     endInsertRows();
 }

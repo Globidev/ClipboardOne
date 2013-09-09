@@ -11,8 +11,6 @@ LoggerTable::LoggerTable(QWidget * parent) : QTableView(parent),
     horizontalHeader()->setStretchLastSection(true);
     //horizontalHeader()->setSortIndicatorShown(true);
 
-    verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
     std::function<void (int, Qt::SortOrder)> sort = 
         std::bind(&QAbstractItemModel::sort, model(), _1,_2);
     QObject::connect(horizontalHeader(), &QHeaderView::sortIndicatorChanged, sort);
@@ -29,5 +27,4 @@ LoggerModel * LoggerTable::model() const
 void LoggerTable::showEvent(QShowEvent * event)
 {
     QTableView::showEvent(event);
-    verticalHeader()->resizeSections(QHeaderView::ResizeToContents);
 }
