@@ -61,12 +61,14 @@ void QMLClipboard::setActivable(bool activable)
 void QMLClipboard::setText(const QString & text)
 {
     ClipboardWatcher::ClipboardSignalBlocker lock;
+    QApplication::processEvents();
     QApplication::clipboard()->setText(text);
 }
 
 void QMLClipboard::setData(MimeDataEntry * data)
 {
     ClipboardWatcher::ClipboardSignalBlocker lock;
+    QApplication::processEvents();
     QApplication::clipboard()->setMimeData(data);
 }
 
