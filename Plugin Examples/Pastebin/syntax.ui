@@ -1,0 +1,1168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>226</width>
+    <height>71</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Plug-in Pastebin : syntax highlighting</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Syntax Highlighting : </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="syntax">
+       <item>
+        <property name="text">
+         <string>4cs</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6502acme</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6502kickass</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6502tasm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>abap</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>actionscript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>actionscript3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ada</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>algol68</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>apache</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>applescript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>apt_sources</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>arm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>asm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>asp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>asymptote</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>autoconf</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>autohotkey</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>autoit</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>avisynth</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>awk</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>bascomavr</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>bash</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>basic4gl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>bibtex</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>blitzbasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>bnf</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>boo</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>bf</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>c</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>c_mac</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cil</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>csharp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cpp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cpp-qt</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>c_loadrunner</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>caddcl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cadlisp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cfdg</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>chaiscript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>clojure</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>klonec</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>klonecpp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cmake</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cobol</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>coffeescript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cfm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>css</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>cuesheet</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>d</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>dcl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>dcpu16</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>dcs</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>delphi</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>oxygene</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>diff</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>div</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>dos</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>dot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>e</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ecmascript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>eiffel</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>email</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>epc</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>erlang</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>fsharp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>falcon</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>fo</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>f1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>fortran</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>freebasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>freeswitch</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gambas</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gml</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gdb</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>genero</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>genie</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gettext</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>go</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>groovy</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gwbasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>haskell</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>haxe</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>hicest</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>hq9plus</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>html4strict</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>html5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>icon</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>idl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ini</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>inno</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>intercal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>io</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>j</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>java</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>java5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>javascript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>jquery</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>kixtart</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>latex</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ldif</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lb</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lsl2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lisp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>llvm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>locobasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>logtalk</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lolcode</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lotusformulas</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lotusscript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lscript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>lua</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>m68k</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>magiksf</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>make</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mapbasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>matlab</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mirc</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mmix</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>modula2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>modula3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>68000devpac</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mpasm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mxml</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mysql</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>nagios</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>newlisp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>text</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>nsis</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>oberon2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>objeck</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>objc</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ocaml-brief</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ocaml</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>octave</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pf</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>glsl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>oobas</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>oracle11</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>oracle8</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>oz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>parasail</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>parigp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pascal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pawn</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pcre</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>per</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>perl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>perl6</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>php</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>php-brief</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pic16</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pike</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pixelbender</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>plsql</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>postgresql</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>povray</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>powershell</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>powerbuilder</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>proftpd</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>progress</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>prolog</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>properties</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>providex</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>purebasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pycon</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>python</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pys60</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>q</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>qbasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>rsplus</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>rails</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>rebol</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>reg</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>rexx</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>robots</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>rpmspec</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ruby</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>gnuplot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>sas</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>scala</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>scheme</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>scilab</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>sdlbasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>smalltalk</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>smarty</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>spark</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>sparql</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>sql</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>stonescript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>systemverilog</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>tsql</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>tcl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>teraterm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>thinbasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>typoscript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>unicon</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>uscript</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ups</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>urbi</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>vala</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>vbnet</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>vedit</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>verilog</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>vhdl</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>vim</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>visualprolog</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>vb</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>visualfoxpro</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>whitespace</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>whois</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>winbatch</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>xbasic</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>xml</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>xorg_conf</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>xpp</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>yaml</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>z80</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>zxbasic</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="upload">
+       <property name="text">
+        <string>Upload</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
