@@ -78,5 +78,9 @@ void QMLUi::addUiElement(QObject * object)
 
 void QMLUi::show()
 {
-    if(loadedUi_) forceShowWindow(loadedUi_.get());
+    if(loadedUi_) 
+    {
+        loadedUi_->adjustSize();
+        forceShowWindow(loadedUi_.get());
+    }
 }

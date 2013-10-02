@@ -14,7 +14,7 @@
    <string>Manage Plug-ins</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">.QWidget {
+   <string notr="true">.QWidget#UiPluginEditor{
 	background-color: rgb(255, 255, 255);
 }</string>
   </property>
@@ -54,7 +54,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="Icons.qrc">
+        <iconset resource="../../Icons.qrc">
          <normaloff>:/PluginEditor/Add</normaloff>:/PluginEditor/Add</iconset>
        </property>
        <property name="iconSize">
@@ -98,7 +98,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="Icons.qrc">
+        <iconset resource="../../Icons.qrc">
          <normaloff>:/PluginEditor/Logs</normaloff>:/PluginEditor/Logs</iconset>
        </property>
        <property name="iconSize">
@@ -127,7 +127,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="Icons.qrc"/>
+  <include location="../../Icons.qrc"/>
  </resources>
  <connections/>
 </ui>
