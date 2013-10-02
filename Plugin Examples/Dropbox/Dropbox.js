@@ -1,15 +1,11 @@
+// OAuth 2.0
 var CLIENT_ID     = 'zw6yixil9jm1r36';
 var CLIENT_SECRET = 'a1us9qus51id4rn';
-var REDIRECT_URI  = 'http:%2f%2flocalhost:1337';
+var REDIRECT_PORT = 1337;
+var REDIRECT_URI  = 'http:%2f%2flocalhost:' + String(REDIRECT_PORT);
 
-var AUTH_URL            = 'https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URI;
-var TOKEN_URL           = 'https://api.dropbox.com/1/oauth2/token';
-var LINK_URL_PREVIEW    = 'https://api.dropbox.com/1/shares/sandbox/Images/';
-var LINK_URL_NO_PREVIEW = 'https://api.dropbox.com/1/media/sandbox/Images/';
-var UPLOAD_URL          = 'https://api-content.dropbox.com/1/files_put/sandbox/Images/';
-var ACCOUNT_INFO_URL    = 'https://api.dropbox.com/1/account/info';
-
-var UNITS = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+var URL_AUTH      = 'https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URI;
+var URL_TOKEN     = 'https://api.dropbox.com/1/oauth2/token';
 
 function OAuthHeaders(token) {
     return {
@@ -28,9 +24,33 @@ function tokenRequestParameters(code) {
     };
 }
 
+// Endpoints
+var API_BASE_DOMAIN    = 'api';
+var API_CONTENT_DOMAIN = 'api-content';
+var API_ROOT           = 'sandbox';
+var API_URL_BASE       = function(endpoint, contentDomain) {
+    var domain = contentDomain ? API_CONTENT_DOMAIN : API_BASE_DOMAIN;
+    return 'https://' + domain + '.dropbox.com/1/' + endpoint + '/' + API_ROOT + '/';
+};
+
+var URL_FILE_GET        = API_URL_BASE('files', true);
+var URL_LINK_PREVIEW    = API_URL_BASE('shares');
+var URL_LINK_NO_PREVIEW = API_URL_BASE('media');
+var URL_UPLOAD          = API_URL_BASE('files_put', true);
+var URL_METADATA_BASE   = API_URL_BASE('metadata');
+var URL_SEARCH_BASE     = API_URL_BASE('search');
+var URL_THUMBNAIL_BASE  = API_URL_BASE('thumbnails', true);
+
+var URL_DELETE_FILE     = 'https://api.dropbox.com/1/fileops/delete';
+
+var URL_ACCOUNT_INFO    = 'https://api.dropbox.com/1/account/info';
+
 function linkUrl(withPreview) {
-    return withPreview ? LINK_URL_PREVIEW : LINK_URL_NO_PREVIEW;
+    return withPreview ? URL_LINK_PREVIEW : URL_LINK_NO_PREVIEW;
 }
+
+// Utilities
+var UNITS = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 
 function bytesToHumanReadable(bytes) {
     var bits = Math.floor(Math.log(bytes) / Math.log(2));
@@ -41,3 +61,7 @@ function bytesToHumanReadable(bytes) {
 
     return bytes.toFixed(2) + ' ' + UNITS[i];
 }
+
+String.prototype.startsWith = function(str) {
+    return this.slice(0, str.length) == str;
+};

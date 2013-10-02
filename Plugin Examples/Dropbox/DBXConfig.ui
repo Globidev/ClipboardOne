@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>493</width>
-    <height>356</height>
+    <width>500</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -520,6 +520,25 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_8">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>17</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Recent uploads :</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -531,6 +550,21 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>128</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QHBoxLayout" name="thumbLayout"/>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
