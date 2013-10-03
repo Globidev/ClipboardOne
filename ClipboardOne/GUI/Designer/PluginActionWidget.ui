@@ -106,6 +106,9 @@
    </item>
    <item>
     <widget class="QToolButton" name="reload">
+     <property name="toolTip">
+      <string>Reload Plug-in</string>
+     </property>
      <property name="styleSheet">
       <string notr="true"> QToolButton {
      border: none;
