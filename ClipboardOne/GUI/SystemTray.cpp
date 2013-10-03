@@ -28,6 +28,12 @@ SystemTray::SystemTray() : QSystemTrayIcon(),
                      &DynamicImageEngine::maskChanged,
                      this, &SystemTray::updateIcon);
 
+    QObject::connect(this, &QSystemTrayIcon::activated, [this] (QSystemTrayIcon::ActivationReason reason)
+    {
+        if(reason == QSystemTrayIcon::DoubleClick)
+            pluginEditor_->forceShow();
+    });
+
     qAddPostRoutine(clean);
 }
 
