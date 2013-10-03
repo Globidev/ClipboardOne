@@ -32,6 +32,9 @@ class QMLPlugin : public QQmlComponent, public QMLBaseComponent<QMLPlugin>
     public :
         QMLPlugin();
 
+        QUrl url() const;
+        void setUrl(const QUrl &);
+
         QString name() const;
         void setName(const QString &);
 
@@ -70,6 +73,8 @@ class QMLPlugin : public QQmlComponent, public QMLBaseComponent<QMLPlugin>
 
     private :
         static inline QMLPlugin * self(Uis *); // convenience function for deducing 'this' from a list property
+
+        QUrl url_;
 
         QString name_;
         QString version_;

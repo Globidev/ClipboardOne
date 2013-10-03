@@ -22,6 +22,7 @@ class PluginActionWidget : public QWidget
         Q_SLOT void onRemovePlugin();
         Q_SLOT void onEnablePlugin();
         Q_SLOT void onConfigurePlugin();
+        Q_SLOT void onReloadPlugin();
 
         std::unique_ptr<Ui::UiPluginActionWidget> ui_;
         std::unique_ptr<RemovePluginDialog> removeDialog_;
@@ -35,5 +36,6 @@ Constant PLUGIN_ACTION_REMOVE_ICON    = ":/PluginEditor/Delete";
 Constant PLUGIN_ACTION_ENABLED_ICON   = ":/PluginEditor/SwitchOn";
 Constant PLUGIN_ACTION_DISABLED_ICON  = ":/PluginEditor/SwitchOff";
 Constant PLUGIN_ACTION_CONFIGURE_ICON = ":/PluginEditor/Configuration";
+Constant PLUGIN_ACTION_RELOAD_ICON    = ":/PluginEditor/Reload";
 
 #endif // PLUGINACTIONWIDGET_H

@@ -91,6 +91,7 @@ void QMLEnvironment::onComponentReady(QQmlComponent * component,
     if(!plugin) // failed to laod plugin most likely due to incorrect Plugin structure 
         return onComponentError(component, url);
     
+    plugin->setUrl(url);
     plugins_.push_back(std::make_pair(Component(component), 
                                       Plugin(plugin)));
 
@@ -137,6 +138,14 @@ void QMLEnvironment::removePlugin(QMLPlugin * plugin, bool removeCacheEntries)
     // Clearing cache for eventual later updates
     instance().engine_->clearComponentCache();
 }
+
+void QMLEnvironment::reloadPlugin(QMLPlugin * plugin)
+{
+    QUrl url = plugin->url();
+    removePlugin(plugin, false);
+    addPlugin(url);
+}
+
 int QMLEnvironment::pluginCount()
 {
     return instance().plugins_.size();

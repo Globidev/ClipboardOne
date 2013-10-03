@@ -26,6 +26,16 @@ QMLPlugin::QMLPlugin() : QQmlComponent(),
     
 }
 
+QUrl QMLPlugin::url() const
+{
+    return url_;
+}
+
+void QMLPlugin::setUrl(const QUrl & url)
+{
+    url_ = url;
+}
+
 QString QMLPlugin::name() const
 {
     return name_;

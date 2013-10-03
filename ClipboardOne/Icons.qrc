@@ -1,41 +1,42 @@
 <RCC>
-    <qresource prefix="/SystemTray">
-        <file alias="Scissors">Icons/Scissors.svg</file>
-        <file alias="Exit">Icons/Exit.svg</file>
-        <file alias="Options">Icons/Options.svg</file>
-        <file alias="Plugins">Icons/Plugins.svg</file>
-    </qresource>
-    <qresource prefix="/PluginEditor">
-        <file alias="Configuration">Icons/Configuration.svg</file>
-        <file alias="Add">Icons/Add.svg</file>
-        <file alias="Label">Icons/Label.svg</file>
-        <file alias="Version">Icons/Version.svg</file>
-        <file alias="Shortcut">Icons/Shortcut.svg</file>
-        <file alias="Gear">Icons/Gear.svg</file>
-        <file alias="Question">Icons/Question.svg</file>
-        <file alias="Delete">Icons/Delete.svg</file>
-        <file alias="Author">Icons/Author.svg</file>
-        <file alias="SwitchOff">Icons/SwitchOff.svg</file>
-        <file alias="SwitchOn">Icons/SwitchOn.svg</file>
-        <file alias="Logs">Icons/Logs.svg</file>
-    </qresource>
-    <qresource prefix="/ShortcutEditor">
-        <file alias="Cycle">Icons/Cycle.svg</file>
-        <file alias="CheckMark">Icons/CheckMark.svg</file>
-        <file alias="CrossMark">Icons/CrossMark.svg</file>
-        <file alias="QuestionMark">Icons/QuestionMark.svg</file>
-    </qresource>
-    <qresource prefix="/AddPluginDialog">
-        <file alias="Browse">Icons/Browse.svg</file>
-        <file alias="Web">Icons/Web.svg</file>
-        <file alias="Folder">Icons/Folder.svg</file>
-        <file alias="Ok">Icons/Ok.svg</file>
-        <file alias="Cancel">Icons/Cancel.svg</file>
-    </qresource>
-    <qresource prefix="/Dialogs">
-        <file alias="QuestionMark">Icons/QuestionMark2.svg</file>
-    </qresource>
-    <qresource prefix="/Redis">
-        <file alias="Redis">Icons/redis.png</file>
-    </qresource>
+  <qresource prefix="/SystemTray">
+    <file alias="Scissors">Icons/Scissors.svg</file>
+    <file alias="Exit">Icons/Exit.svg</file>
+    <file alias="Options">Icons/Options.svg</file>
+    <file alias="Plugins">Icons/Plugins.svg</file>
+  </qresource>
+  <qresource prefix="/PluginEditor">
+    <file alias="Reload">Icons/Reload.svg</file>
+    <file alias="Configuration">Icons/Configuration.svg</file>
+    <file alias="Add">Icons/Add.svg</file>
+    <file alias="Label">Icons/Label.svg</file>
+    <file alias="Version">Icons/Version.svg</file>
+    <file alias="Shortcut">Icons/Shortcut.svg</file>
+    <file alias="Gear">Icons/Gear.svg</file>
+    <file alias="Question">Icons/Question.svg</file>
+    <file alias="Delete">Icons/Delete.svg</file>
+    <file alias="Author">Icons/Author.svg</file>
+    <file alias="SwitchOff">Icons/SwitchOff.svg</file>
+    <file alias="SwitchOn">Icons/SwitchOn.svg</file>
+    <file alias="Logs">Icons/Logs.svg</file>
+  </qresource>
+  <qresource prefix="/ShortcutEditor">
+    <file alias="Cycle">Icons/Cycle.svg</file>
+    <file alias="CheckMark">Icons/CheckMark.svg</file>
+    <file alias="CrossMark">Icons/CrossMark.svg</file>
+    <file alias="QuestionMark">Icons/QuestionMark.svg</file>
+  </qresource>
+  <qresource prefix="/AddPluginDialog">
+    <file alias="Browse">Icons/Browse.svg</file>
+    <file alias="Web">Icons/Web.svg</file>
+    <file alias="Folder">Icons/Folder.svg</file>
+    <file alias="Ok">Icons/Ok.svg</file>
+    <file alias="Cancel">Icons/Cancel.svg</file>
+  </qresource>
+  <qresource prefix="/Dialogs">
+    <file alias="QuestionMark">Icons/QuestionMark2.svg</file>
+  </qresource>
+  <qresource prefix="/Redis">
+    <file alias="Redis">Icons/redis.png</file>
+  </qresource>
 </RCC>

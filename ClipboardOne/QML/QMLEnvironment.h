@@ -76,6 +76,7 @@ class QMLEnvironment : public QObject, boost::noncopyable
 
         static void addPlugin(const QUrl &);
         static void removePlugin(QMLPlugin *, bool);
+        static void reloadPlugin(QMLPlugin *);
 
         Q_SIGNAL void pluginAdded(int);
         Q_SIGNAL void pluginRemoved(int);
