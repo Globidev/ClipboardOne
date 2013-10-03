@@ -135,7 +135,7 @@ void QMLEnvironment::removePlugin(QMLPlugin * plugin, bool removeCacheEntries)
         }
     
     // Clearing cache for eventual later updates
-    instance().engine_->trimComponentCache();
+    instance().engine_->clearComponentCache();
 }
 int QMLEnvironment::pluginCount()
 {
