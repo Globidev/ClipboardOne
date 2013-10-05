@@ -171,3 +171,9 @@ static int startProcessElevated(const QString & program, const QStringList & arg
                                 args.join(" ").toUtf8().constData(), 0, SW_HIDE);
 }
 #endif
+
+Constant IS_CALLABLE_WITH_ARITY = [](const QJSValue & function, int arity)
+{
+    return function.isCallable() && 
+           function.property("length").toInt() == arity;
+};

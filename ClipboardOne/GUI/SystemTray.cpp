@@ -6,6 +6,8 @@
 #include "PluginEditor/PluginEditor.h"
 #include "OptionDialog/OptionDialog.h"
 
+#include "GUI/Logger/Logger.h"
+
 SystemTray & SystemTray::instance()
 {
     static SystemTray systemTray;
@@ -47,9 +49,36 @@ void SystemTray::clean()
 
 void SystemTray::alert(const QString & message, 
                        const QString & title, 
-                       QSystemTrayIcon::MessageIcon icon)
+                       QJSValue onMessageClicked)
 {
-    showMessage(title, message, icon);
+    if(!onMessageClicked.isUndefined())
+        bindMessageClicked(onMessageClicked);
+    else
+        unbindMessageClicked();
+    showMessage(title, message);
+}
+
+void SystemTray::unbindMessageClicked()
+{
+    if(messageClickedConnection_)
+    {
+        QObject::disconnect(*messageClickedConnection_);
+        messageClickedConnection_.reset();
+    }
+}
+
+void SystemTray::bindMessageClicked(QJSValue & slot)
+{
+    if(!IS_CALLABLE_WITH_ARITY(slot, 0))
+        Logger::log(SYSTEM_TRAY_ON_MESSAGE_CLICKED_PARAMETER_ERROR, 
+                    LogEntry::Type::Error, LogEntry::Scope::Plugin);
+    else
+    {
+        unbindMessageClicked();
+        messageClickedConnection_.reset(new QMetaObject::Connection(
+            QObject::connect(this, &QSystemTrayIcon::messageClicked,
+                            [slot]() mutable { slot.call(); })));
+    }
 }
 
 void SystemTray::initContextMenu()
