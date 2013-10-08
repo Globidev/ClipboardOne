@@ -193,6 +193,27 @@
     <ClCompile Include="Core\Encoding.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\Logger\Logger.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LoggerTable.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LoggerDelegate.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LoggerModel.cpp">
+      <Filter>Source Files\GUI\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Logger\LogEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Dialogs\RemovePluginDialog.cpp">
+      <Filter>Source Files\GUI\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\OptionDialog\OptionDialog.cpp">
+      <Filter>Source Files\GUI\OptionDialog</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SystemTray.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -209,6 +230,15 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_ShortcutEditor.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_RemovePluginDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_RemovePluginDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_RemovePluginDialog.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QMLUiTools.cpp">
@@ -337,6 +367,15 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_MimeDataEntry.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Logger.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Logger.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_Logger.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_LocalHTTPServer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -408,45 +447,6 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_ClipboardWatcher.cpp">
       <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\Logger\Logger.cpp">
-      <Filter>Source Files\GUI\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\Logger\LoggerTable.cpp">
-      <Filter>Source Files\GUI\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\Logger\LoggerDelegate.cpp">
-      <Filter>Source Files\GUI\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\Logger\LoggerModel.cpp">
-      <Filter>Source Files\GUI\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\Logger\LogEntry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Logger.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Logger.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release console\moc_Logger.cpp">
-      <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\Dialogs\RemovePluginDialog.cpp">
-      <Filter>Source Files\GUI\Dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RemovePluginDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RemovePluginDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release console\moc_RemovePluginDialog.cpp">
-      <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\OptionDialog\OptionDialog.cpp">
-      <Filter>Source Files\GUI\OptionDialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

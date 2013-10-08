@@ -100,4 +100,7 @@ class QMLEnvironment : public QObject, boost::noncopyable
         std::vector<PluginData> plugins_;
 };
 
+Constant PLUGIN_URLS_SETTINGS_SCOPE_NAME = "plug-ins";
+Constant PLUGIN_URLS_SETTINGS_KEY_NAME = "urls";
+
 #endif // QMLENVIRONMENT_H

@@ -23,12 +23,10 @@ QMLEnvironment::QMLEnvironment() : QObject(),
     QObject::connect(engine_.get(), &QQmlEngine::warnings, [](const QList<QQmlError> & warnings)
     {
         for(auto & error : warnings)
-            Logger::log(error.toString(), 
+            Logger::log(error.toString(),
                         LogEntry::Type::Warning,
                         LogEntry::Scope::Plugin);
     });
-
-    qAddPostRoutine(clean);
 
     addSingletonToContext <
         SystemTray,
@@ -40,6 +38,8 @@ QMLEnvironment::QMLEnvironment() : QObject(),
         Encoding,
         Logger
     >();
+
+    qAddPostRoutine(clean);
 }
 
 void QMLEnvironment::clean()
@@ -164,15 +164,15 @@ void QMLEnvironment::apply(const PluginAction & action)
 
 void QMLEnvironment::addPluginToCache(const QUrl & url)
 {
-    auto pluginUrls = Settings::value<QStringList>("urls", "Plug-ins");
-    if(!pluginUrls.contains(url.toString()))
-        pluginUrls.append(url.toString());
-    Settings::setValue("urls", pluginUrls, "Plug-ins");
+    Settings::Reference<QStringList> pluginUrls(PLUGIN_URLS_SETTINGS_KEY_NAME, 
+                                                PLUGIN_URLS_SETTINGS_SCOPE_NAME);
+    if(!pluginUrls->contains(url.toString()))
+        pluginUrls->append(url.toString());
 }
 
 void QMLEnvironment::removePluginFromCache(const QUrl & url)
 {
-    auto pluginUrls = Settings::value<QStringList>("urls", "Plug-ins");
-    pluginUrls.removeOne(url.toString());
-    Settings::setValue("urls", pluginUrls, "Plug-ins");
+    Settings::Reference<QStringList> pluginUrls(PLUGIN_URLS_SETTINGS_KEY_NAME, 
+                                                PLUGIN_URLS_SETTINGS_SCOPE_NAME);
+    pluginUrls->removeOne(url.toString());
 }
