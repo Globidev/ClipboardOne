@@ -41,10 +41,11 @@ SystemTray::SystemTray() : QSystemTrayIcon(),
 
 void SystemTray::clean()
 {
-    instance().contextMenu_.release(); // LEAK (use reset when fixed)
-                                       // QT BUG : https://bugreports.qt-project.org/browse/QTBUG-30756
-    instance().pluginEditor_.reset();
-    instance().optionDialog_.reset();
+    auto & self = instance();
+
+    self.contextMenu_.reset();
+    self.pluginEditor_.reset();
+    self.optionDialog_.reset();
 }
 
 void SystemTray::alert(const QString & message, 
