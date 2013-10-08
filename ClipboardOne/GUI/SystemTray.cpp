@@ -51,10 +51,9 @@ void SystemTray::alert(const QString & message,
                        const QString & title, 
                        QJSValue onMessageClicked)
 {
+    unbindMessageClicked();
     if(!onMessageClicked.isUndefined())
         bindMessageClicked(onMessageClicked);
-    else
-        unbindMessageClicked();
     showMessage(title, message);
 }
 
@@ -74,7 +73,6 @@ void SystemTray::bindMessageClicked(QJSValue & slot)
                     LogEntry::Type::Error, LogEntry::Scope::Plugin);
     else
     {
-        unbindMessageClicked();
         messageClickedConnection_.reset(new QMetaObject::Connection(
             QObject::connect(this, &QSystemTrayIcon::messageClicked,
                             [slot]() mutable { slot.call(); })));
