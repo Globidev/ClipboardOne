@@ -141,6 +141,7 @@ QPixmap QMLPlugin::loadedIcon()
 void QMLPlugin::setEnabled(bool enabled)
 {
     if(clipboard_) clipboard_->setEnabled(enabled);
+    Q_EMIT enabledChanged(enabled);
 }
 
 void QMLPlugin::cleanUp(bool removeCacheEntries)

@@ -66,6 +66,7 @@ class QMLPlugin : public QQmlComponent, public QMLBaseComponent<QMLPlugin>
         QPixmap loadedIcon();
 
         void setEnabled(bool);
+        Q_SIGNAL void enabledChanged(bool enabled);
 
         Q_SIGNAL void configure();
 
