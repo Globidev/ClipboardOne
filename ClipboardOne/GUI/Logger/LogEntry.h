@@ -30,6 +30,7 @@ Constant LOG_ENTRY_TYPE = [](LogEntry::Type type)
         case LogEntry::Type::Error   : return "Error";
         case LogEntry::Type::Warning : return "Warning";
     }
+    return "Unknown";
 };
 
 Constant LOG_ENTRY_SCOPE = [](LogEntry::Scope scope)
@@ -40,6 +41,7 @@ Constant LOG_ENTRY_SCOPE = [](LogEntry::Scope scope)
         case LogEntry::Scope::Plugin  : return "Plugin";
         case LogEntry::Scope::Redis   : return "Redis";
     }
+    return "Unknown";
 };
 
 Constant LOG_ENTRY_TYPE_COLOR = [](LogEntry::Type type) -> QBrush
@@ -50,6 +52,7 @@ Constant LOG_ENTRY_TYPE_COLOR = [](LogEntry::Type type) -> QBrush
         case LogEntry::Type::Error   : return Qt::red;
         case LogEntry::Type::Warning : return QColor(255, 128, 0);
     }
+    return Qt::black;
 };
 
 Constant LOG_ENTRY_SCOPE_ICON = [](LogEntry::Scope scope)
@@ -60,6 +63,7 @@ Constant LOG_ENTRY_SCOPE_ICON = [](LogEntry::Scope scope)
         case LogEntry::Scope::Plugin  : return ":/SystemTray/Plugins";
         case LogEntry::Scope::Redis   : return ":/Redis/Redis";
     }
+    return ":/ShortcutEditor/QuestionMark";
 };
 
 #endif // LOGENTRY_H
