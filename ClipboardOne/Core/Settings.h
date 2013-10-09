@@ -11,27 +11,16 @@ class Settings : boost::noncopyable
         };
 
         template <class Type>
-        struct Reference
+        class Reference
         {
-            explicit Reference(const QString & key) :
-                key_(key), value_(value<Type>(key))
-            {
-            }
+            public :
+                explicit Reference(const QString & key) :
+                    key_(key), value_(value<Type>(key)) { }
+                Reference(const QString & key, const QString & scopeName) :
+                    key_(key), scope_(new Scope(scopeName)), value_(value<Type>(key)) { }
+                ~Reference() { setValue(key_, value_); }
 
-            Reference(const QString & key, const QString & scopeName) :
-                key_(key), scope_(new Scope(scopeName)), value_(value<Type>(key))
-            {
-            }
-
-            ~Reference()
-            {
-                setValue(key_, value_);
-            }
-
-            Type * operator->()
-            {
-                return &value_;
-            }
+                Type * operator->() { return &value_; }
 
             private :
                 QString key_;
@@ -47,7 +36,6 @@ class Settings : boost::noncopyable
 
         template <class Type>
         static Type value(const QString &, const Type & = Type());
-        
         template <class Type>
         static Type value(const QString &, const QString &, const Type & = Type());
 

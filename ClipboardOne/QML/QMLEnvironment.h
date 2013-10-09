@@ -24,32 +24,25 @@ class QMLEnvironment : public QObject, boost::noncopyable
         template <class T, class T2, class ... Tn>
         static void registerComponents()
         {
-            registerComponent<T>();
+            registerComponents<T>();
             registerComponents<T2, Tn ...>();
-        }
-
-        // 1 type registration
-        template <class T>
-        static void registerComponents()
-        { 
-            registerComponent<T>();
-        }
-
-        // Custom Component registration
-        template <class T>
-        static typename std::enable_if<std::is_base_of<QMLBaseComponent<T>, T>::value, void>::type
-        registerComponent()
-        {
-            qmlRegisterType<T>(T::package, T::majorVersion, 
-                               T::minorVersion, T::qmlName);
         }
 
         // Standard type registration
         template <class T>
         static typename std::enable_if<!std::is_base_of<QMLBaseComponent<T>, T>::value, void>::type
-        registerComponent()
+        registerComponents()
         {
             qmlRegisterType<T>();
+        }
+
+        // Custom Component registration
+        template <class T>
+        static typename std::enable_if<std::is_base_of<QMLBaseComponent<T>, T>::value, void>::type
+        registerComponents()
+        {
+            qmlRegisterType<T>(T::package, T::majorVersion, 
+                               T::minorVersion, T::qmlName);
         }
 
         // 2 + singleton registration
@@ -91,7 +84,7 @@ class QMLEnvironment : public QObject, boost::noncopyable
 
         void onComponentReady(QQmlComponent *, const QUrl &);
         void onComponentError(QQmlComponent *, const QUrl &);
-        static inline void initPlugin(QMLPlugin *);
+        static void initPlugin(QMLPlugin *);
 
         inline void addPluginToCache(const QUrl &);
         inline void removePluginFromCache(const QUrl &);
