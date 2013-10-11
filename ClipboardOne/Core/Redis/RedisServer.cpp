@@ -21,7 +21,7 @@ RedisServer::RedisServer()
     process_.setWorkingDirectory(Settings::directory());
 
     QStringList arguments;
-    arguments << QDir(QDir::currentPath()).filePath(REDIS_SERVER_CONF_FILE);
+    arguments << REDIS_SERVER_CONF_FILE_PATH();
 
     process_.start(REDIS_SERVER_EXECUTABLE, arguments);
     process_.waitForStarted();

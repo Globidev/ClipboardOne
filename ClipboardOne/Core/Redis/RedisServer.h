@@ -25,5 +25,10 @@ class RedisServer : boost::noncopyable
 };
 
 Constant REDIS_SERVER_CONF_FILE = "redis_config.conf";
+Constant REDIS_SERVER_CONF_FILE_PATH = []
+{
+    return QDir(QApplication::applicationDirPath())
+            .filePath(REDIS_SERVER_CONF_FILE);
+};
 
 #endif // REDISSERVER_H
