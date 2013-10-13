@@ -28,8 +28,11 @@ void LocalHTTPServer::readClient(QTcpSocket * socket)
         if(tokens.size() >= 2 && tokens[0] == GET_METHOD)
         {
             QString queryString = QUrl(tokens[1]).query();
-            QUrlQuery query(queryString);
-            Q_EMIT newQuery(pairListToMap(query.queryItems()));
+            if(!queryString.isEmpty())
+            {
+                QUrlQuery query(queryString);
+                Q_EMIT newQuery(pairListToMap(query.queryItems()));
+            }
             respondToClient(socket);
         }
     }
