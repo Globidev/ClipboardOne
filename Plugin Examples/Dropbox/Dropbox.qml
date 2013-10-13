@@ -8,7 +8,7 @@ Plugin {
     id : plugin
 
     name    : 'Dropbox'
-    version : '1.5'
+    version : '1.51'
     author  : 'Globinatif'
     icon    : Qt.resolvedUrl('Icon.png')
 
@@ -64,7 +64,7 @@ Plugin {
                     withToken(getImageList)
                 }
                 else
-                    console.log(thumbListComponent.errorString())
+                    Logger.error(thumbListComponent.errorString())
             })
         }
     }
@@ -179,7 +179,7 @@ Plugin {
 
             if (status === 200) {
                 clipboard.setText(json['url'])
-                var text = (upload ? 'File successfully uploaded\n' : '') + 'Link is ready'
+                var text = (upload ? 'File successfully uploaded\n' : '') + 'Link is ready\n' + 'Expires : ' + json['expires']
                 SystemTray.alert(text, 'Plug-in Dropbox : Success')
             } else
                 onNetworkError(status, json)
@@ -277,7 +277,7 @@ Plugin {
     }
 
     function onLocalServerError() {
-        SystemTray.alert('Could not open a local HTTP server on ' + String(REDIRECT_PORT), 'Plug-in Dropbox : Network Error')
+        SystemTray.alert('Could not open a local HTTP server on ' + String(Dropbox.REDIRECT_PORT), 'Plug-in Dropbox : Network Error')
     }
 
     function onAccessDenied() {

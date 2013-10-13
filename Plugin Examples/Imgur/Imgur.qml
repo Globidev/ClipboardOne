@@ -6,35 +6,74 @@ Plugin {
     id : plugin
 
     name    : 'Imgur'
-    version : '1.2'
+    version : '1.5'
     author  : 'Globitch'
     icon    : Qt.resolvedUrl('Icon.png')
 
     onConfigure : {
-        uiConfig.show()
+        withToken(function(token) {
+            getAccountInfo(token)
+            getUserStats(token)
+        })
 
-        withToken(getAccountInfo)
-        withToken(getUserStats)
+        uiConfig.show()
     }
 
     settings : Settings {
         id     : conf
         prefix : 'Imgur'
 
-        function addFromJson(value, json) { setValue(value, json[value]) }
-        function setter(key) { return function(value) { setValue(key, value) } }
+        function addFromJson(value, json) { 
+            setValue(value, json[value]) 
+        }
+
+        function setter(key) { 
+            return function(value) { 
+                setValue(key, value) 
+            } 
+        }
     }
 
     Ui {
         id : uiConfig
         file : Qt.resolvedUrl('Imgur.ui')
 
+        property variant thumbList
+
         Component.onCompleted : {
             uiConfig.mainWindow.windowIcon = plugin.loadedIcon
 
             loaded.fileExtension.setCurrentText(conf.value('file_extension', 'png'))
             loaded.fileExtension.currentTextChanged.connect(conf.setter('file_extension'))
+            loadListView()
         }
+
+        function loadListView() {
+            var thumbListComponent = Qt.createComponent(Qt.resolvedUrl('view.qml'), Component.Asynchronous)
+            thumbListComponent.statusChanged.connect(function() {
+                if(thumbListComponent.status == Component.Ready)
+                {
+                    thumbList = thumbListComponent.createObject()
+                    var thumbListWidget = UiTools.qmlWidget(thumbList.list())
+                    UiTools.layWidget(loaded.thumbLayout, thumbListWidget)
+                    withToken(getImageList)
+                }
+                else
+                    Logger.error(thumbListComponent.errorString())
+            })
+        }
+    }
+
+    Ui {
+        id : imageViewer
+        file : Qt.resolvedUrl('ImageViewer.ui')
+
+        function load(imgData) {
+            loaded.imageLabel.pixmap = ImageLoader.loadPixmapFromData(imgData)
+            show()
+        }
+
+        Component.onCompleted : imageViewer.mainWindow.windowIcon = plugin.loadedIcon
     }
 
     clipboard : Clipboard {
@@ -53,115 +92,194 @@ Plugin {
         }
     }
 
-    function withToken(callback) { // TODO : Maybe add a timer to be able to use the access token until it expires and not refresh it every time
-        var refreshToken = conf.value('refresh_token')
-        if(refreshToken == undefined)
+    function withToken(callback) {
+        var accessToken = conf.value('access_token')
+        if(accessToken === undefined)
             retrieveCode(callback)
-        else
-            retrieveToken(Imgur.refreshPayload(refreshToken), callback)
+        else {
+            var tokenExpires = conf.value('token_expiration_date')
+            var userName     = conf.value('account_username')
+            if(userName === undefined || new Date > tokenExpires) {
+                var refreshToken = conf.value('refresh_token')
+                retrieveToken(refreshToken, callback)
+            }
+            else
+                callback(accessToken)
+        }
     }
 
     function retrieveCode(callback) {
-        var localServer = HTTP.newLocalServer(1337)
+        var localServer = HTTP.newLocalServer(Imgur.REDIRECT_PORT) // TODO, response timeout
         if(!localServer.isListening()) 
             return onLocalServerError()
 
         localServer.newQuery.connect(function(query) {
-            if('code' in query) {
-                var payload = Imgur.codePayload(query['code'])
-                retrieveToken(payload, callback)
-            } else {
+            if('code' in query)
+                retrieveRefreshTokenFromCode(query['code'], callback)
+            else
                 onAccessDenied()
-            }
         })
 
         Qt.openUrlExternally(Imgur.AUTH_URL)
     }
 
-    function retrieveToken(payload, callback) {
+    function retrieveRefreshTokenFromCode(code, callback) {
         var headers = { 'Content-type' : 'application/x-www-form-urlencoded' }
-        var reply   = HTTP.post(Imgur.TOKEN_URL, headers, payload)
+        var request = Imgur.bind(HTTP.post, Imgur.TOKEN_URL, headers, Imgur.CODE_PAYLOAD(code))
 
-        reply.finished.connect(function(status) {
-            var json = reply.json()
-            if(status === 200) {
-                conf.addFromJson('account_username', json)
-                conf.addFromJson('refresh_token',    json)
-                callback(json['access_token'])
-            } else {
-                onNetworkError(status, json)
-            }
-        })
+        var onTokenRetrieved = function(json) {
+            retrieveToken(json['refresh_token'], callback)
+        }
+
+        imgurAPICall(request, onTokenRetrieved)
+    }
+
+    function retrieveToken(refreshToken, callback) {
+        var headers = { 'Content-type' : 'application/x-www-form-urlencoded' }
+        var request = Imgur.bind(HTTP.post, Imgur.TOKEN_URL, headers, Imgur.REFRESH_PAYLOAD(refreshToken))
+
+        var onTokenRetrieved = function(json) {
+            var expirationDate = new Date()
+            expirationDate.setSeconds(expirationDate.getSeconds() + json['expires_in'])
+            conf.setValue('token_expiration_date', expirationDate)
+
+            conf.addFromJson('account_username', json)
+            conf.addFromJson('refresh_token', json)
+            conf.addFromJson('access_token', json)
+            callback(json['access_token'])
+        }
+
+        imgurAPICall(request, onTokenRetrieved)
     }
 
     function upload(data, token) {
         var payload = { 'image' : data }
-        var reply   = HTTP.post(Imgur.UPLOAD_URL, 
-                                Imgur.OAuthHeaders(token), 
-                                payload)
+        var request = Imgur.bind(HTTP.post, Imgur.UPLOAD_URL, Imgur.OAUTH_HEADERS(token), payload)
 
-        reply.finished.connect(function(status) {
-            var json = reply.json()
+        var onSuccess = function(json) {
+            clipboard.setText(json['data']['link'])
+            SystemTray.alert('Image successfully uploaded\nLink is ready', 'Plug-in Imgur : Success')
+        }
 
-            if(status === 200) {
-                clipboard.setText(json['data']['link'])
-                SystemTray.alert('Image successfully uploaded\nLink is ready', 'Plug-in Imgur : Success')
-            } else {
-                onNetworkError(status, json)
-            }
-        })
+        imgurAPICall(request, onSuccess)
     }
 
     function getAccountInfo(token) {
-        var url   = Imgur.accountInfoUrl(conf.value('account_username'))
-        var reply = HTTP.get(url, Imgur.OAuthHeaders(token))
+        var url     = Imgur.ACCOUNT_INFO_URL(conf.value('account_username'))
+        var request = Imgur.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
 
-        reply.finished.connect(function(status) {
-            var json = reply.json()
-
-            if(status === 200) {
-                var data = json['data']
-
-                uiConfig.loaded.userName.text = data['url']
-                uiConfig.loaded.userId.text   = data['id']
-                uiConfig.loaded.userBio.text  = String(data['bio'])
-                uiConfig.loaded.userRep.text  = String(data['reputation'])
-                uiConfig.loaded.userAge.text  = Imgur.daysFrom(new Date(data['created'] * 1000))
-            } else {
-                onNetworkError(status, json)
-            }
-        })
+        var onInfoRetrieved = function(json) {
+            var data = json['data']
+            uiConfig.loaded.userName.text = data['url']
+            uiConfig.loaded.userId.text   = data['id']
+            uiConfig.loaded.userBio.text  = String(data['bio'])
+            uiConfig.loaded.userRep.text  = String(data['reputation'])
+            uiConfig.loaded.userAge.text  = Imgur.daysFrom(new Date(data['created'] * 1000)) + ' days'
+        }
+        
+        imgurAPICall(request, onInfoRetrieved)
     }
 
     function getUserStats(token) {
-        var url   = Imgur.accountStatsUrl(conf.value('account_username'))
-        var reply = HTTP.get(url, Imgur.OAuthHeaders(token))
+        var url     = Imgur.ACCOUNT_STATS_URL(conf.value('account_username'))
+        var request = Imgur.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
+
+        var onStatsRetrieved = function(json) {
+            var data = json['data']
+            uiConfig.loaded.imageCount.text = String(data['total_images'])
+            uiConfig.loaded.albumCount.text = String(data['total_albums'])
+            uiConfig.loaded.diskSpace.text  = data['disk_used']
+            uiConfig.loaded.bandwidth.text  = data['bandwidth_used']
+        }
+
+        imgurAPICall(request, onStatsRetrieved)
+    }
+
+    function getImagesIds(token, callback) {
+        var url     = Imgur.ACCOUNT_IMAGES_IDS_URL(conf.value('account_username'), 0)
+        var request = Imgur.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
+
+        var onIdsReceived = function(json) {
+            callback(json['data'])
+        }
+
+        imgurAPICall(request, onIdsReceived)
+    }
+
+    function getImageList(token) {
+        getImagesIds(token, function(ids) {
+            for(var i = 0; i < ids.length; ++ i)
+                fetchThumbnail(token, ids[i])
+        })
+    }
+
+    function fetchThumbnail(token, id) {
+        var reply = HTTP.get('http://i.imgur.com/' + id + Imgur.THUMBNAIL_SIZE_SUFFIX + '.jpg')
 
         reply.finished.connect(function(status) {
-            var json = reply.json()
+            if(status === 200)
+                uiConfig.thumbList.addImage({
+                    'imageData' : Encoding.base64(reply.rawData()),
+                    'imageId'   : id
+                })
+            else
+                onNetworkError(status, reply.json())
+        })
+    }
 
-            if(status === 200) {
-                var data = json['data']
+    function imageLink(token, id, callback) {
+        var request = Imgur.bind(HTTP.get, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
 
-                uiConfig.loaded.imageCount.text = String(data['total_images'])
-                uiConfig.loaded.albumCount.text = String(data['total_albums'])
-                uiConfig.loaded.diskSpace.text  = data['disk_used']
-                uiConfig.loaded.bandwidth.text  = data['bandwidth_used']
-            } else {
-                onNetworkError(status, json)
-            }
+        imgurAPICall(request, function(json) {
+            callback(json['data']['link'])
+        })
+    }
+
+    function deleteImage(token, id) {
+        var request = Imgur.bind(HTTP.del, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
+
+        imgurAPICall(request, function(json) {
+            if (json['success'] === true)
+                SystemTray.alert('Image successfully deleted', 'Plug-in Imgur : Success')
+            else
+                SystemTray.alert('Image could not be deleted', 'Plug-in Imgur : Error')
+        })
+    }
+
+    function getImage(token, id, callback) {
+        SystemTray.alert('Fetching file\nPlease wait', 'Plug-in Imgur : Fetching')
+
+        imageLink(token, id, function(link) {
+            var reply = HTTP.get(link)
+            reply.finished.connect(function(status) {
+                if(status === 200)
+                    callback(reply.rawData())
+                else
+                    onNetworkError(status, reply.json())
+            })
+        })
+    }
+
+    function imgurAPICall(requestFunctor, successFunctor) {
+        var reply = requestFunctor()
+
+        reply.finished.connect(function(status) {
+            if(status === 200)
+                successFunctor(reply.json())
+            else
+                onNetworkError(status, reply.json())
         })
     }
 
     function onLocalServerError() {
-
+        SystemTray.alert('Could not open a local HTTP server on ' + String(Imgur.REDIRECT_PORT), 'Plug-in Imgur : Network Error')
     }
 
     function onAccessDenied() {
-
+        SystemTray.alert('Okay :\'(', 'Plug-in Imgur : Access Denied')
     }
 
     function onNetworkError(status, json) {
-        SystemTray.alert(json['data']['error'], 'Plug-in Imgur : ' + String(status))
+        SystemTray.alert(json['data']['error'], 'Plug-in Imgur : Network Error ' + String(status))
     }
 }
