@@ -16,6 +16,7 @@
 #include "Core/ProcessManager.h"
 #include "Core/Settings.h"
 #include "Core/Encoding.h"
+#include "Core/Functional.h"
 
 QMLEnvironment::QMLEnvironment() : QObject(),
     engine_(new QQmlEngine)
@@ -36,7 +37,8 @@ QMLEnvironment::QMLEnvironment() : QObject(),
         DynamicImageEngine,
         QMLUiTools,
         Encoding,
-        Logger
+        Logger,
+        Functional
     >();
 
     qAddPostRoutine(clean);

@@ -35,6 +35,7 @@ using namespace std::placeholders;
 // Redis
 #ifdef WIN32
   #include <hiredis.h>
+  #include <async.h>
 #endif
 
 // Syntax sugars
@@ -53,6 +54,7 @@ Constant REDIS_SHUTDOWN_COMMAND   = "SHUTDOWN";
 Constant REDIS_FLUSHDB_COMMAND    = "FLUSHDB";
 Constant REDIS_SET_BINARY_COMMAND = "SET %s %b";
 Constant REDIS_GET_COMMAND        = "GET %s";
+Constant REDIS_PUBLISH_COMMAND    = "PUBLISH %s %b";
 
 Constant REDIS_REPLY_OK = "OK";
 
@@ -172,8 +174,39 @@ static int startProcessElevated(const QString & program, const QStringList & arg
 }
 #endif
 
+// JS bindings
+
 Constant IS_CALLABLE_WITH_ARITY = [](const QJSValue & function, int arity)
 {
     return function.isCallable() && 
            function.property("length").toInt() == arity;
 };
+
+template <class ... Args>
+static QJSValue jsBind(const QJSValue & func, const Args & ... args)
+{
+    QJSValue bindFunction = func.prototype().property("bind");
+    QJSValueList jsArguments = jsMakeValueList(QJSValue::UndefinedValue, args ...);
+    return bindFunction.callWithInstance(func, jsArguments);
+}
+
+template <class ... Ts>
+static QJSValueList jsMakeValueList(const Ts & ... values)
+{
+    QJSValueList list;
+    fillJsList(list, values ...);
+    return list;
+}
+
+template <class T1, class T2, class ... Ts>
+static void fillJsList(QJSValueList & list, const T1 & v1, const T2 & v2, const Ts & ... vs)
+{
+    list << v1;
+    fillJsList(list, v2, vs ...);
+}
+
+template <class T>
+static void fillJsList(QJSValueList & list, const T & v)
+{
+    list << v;
+}
