@@ -23,7 +23,8 @@ RowLayout {
             Image {
                 id : img
                 source : "data:image/png;base64," + imageData
-                property variant path : imagePath
+                property string path : imagePath
+                // implicit member : imageDate
             }
 
             MouseArea {
@@ -74,7 +75,11 @@ RowLayout {
     }
 
     function addImage(imgData) {
-        model.append(imgData)
+        var i
+        for (i = 0; i < model.count; ++ i)
+            if (model.get(i).imageDate < new Date(imgData['imageDate']))
+                break
+        model.insert(i, imgData)
     }
 
     function removeImage(imgPath) {

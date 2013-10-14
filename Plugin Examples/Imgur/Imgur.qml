@@ -6,7 +6,7 @@ Plugin {
     id : plugin
 
     name    : 'Imgur'
-    version : '1.5'
+    version : '1.6'
     author  : 'Globitch'
     icon    : Qt.resolvedUrl('Icon.png')
 
@@ -92,6 +92,7 @@ Plugin {
         }
     }
 
+// OAuth 2.0
     function withToken(callback) {
         var accessToken = conf.value('access_token')
         if(accessToken === undefined)
@@ -125,7 +126,7 @@ Plugin {
 
     function retrieveRefreshTokenFromCode(code, callback) {
         var headers = { 'Content-type' : 'application/x-www-form-urlencoded' }
-        var request = Imgur.bind(HTTP.post, Imgur.TOKEN_URL, headers, Imgur.CODE_PAYLOAD(code))
+        var request = Functional.bind(HTTP.post, Imgur.TOKEN_URL, headers, Imgur.CODE_PAYLOAD(code))
 
         var onTokenRetrieved = function(json) {
             retrieveToken(json['refresh_token'], callback)
@@ -136,7 +137,7 @@ Plugin {
 
     function retrieveToken(refreshToken, callback) {
         var headers = { 'Content-type' : 'application/x-www-form-urlencoded' }
-        var request = Imgur.bind(HTTP.post, Imgur.TOKEN_URL, headers, Imgur.REFRESH_PAYLOAD(refreshToken))
+        var request = Functional.bind(HTTP.post, Imgur.TOKEN_URL, headers, Imgur.REFRESH_PAYLOAD(refreshToken))
 
         var onTokenRetrieved = function(json) {
             var expirationDate = new Date()
@@ -152,9 +153,10 @@ Plugin {
         imgurAPICall(request, onTokenRetrieved)
     }
 
+// API calls
     function upload(data, token) {
         var payload = { 'image' : data }
-        var request = Imgur.bind(HTTP.post, Imgur.UPLOAD_URL, Imgur.OAUTH_HEADERS(token), payload)
+        var request = Functional.bind(HTTP.post, Imgur.UPLOAD_URL, Imgur.OAUTH_HEADERS(token), payload)
 
         var onSuccess = function(json) {
             clipboard.setText(json['data']['link'])
@@ -166,7 +168,7 @@ Plugin {
 
     function getAccountInfo(token) {
         var url     = Imgur.ACCOUNT_INFO_URL(conf.value('account_username'))
-        var request = Imgur.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
+        var request = Functional.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
 
         var onInfoRetrieved = function(json) {
             var data = json['data']
@@ -182,7 +184,7 @@ Plugin {
 
     function getUserStats(token) {
         var url     = Imgur.ACCOUNT_STATS_URL(conf.value('account_username'))
-        var request = Imgur.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
+        var request = Functional.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
 
         var onStatsRetrieved = function(json) {
             var data = json['data']
@@ -197,7 +199,7 @@ Plugin {
 
     function getImagesIds(token, callback) {
         var url     = Imgur.ACCOUNT_IMAGES_IDS_URL(conf.value('account_username'), 0)
-        var request = Imgur.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
+        var request = Functional.bind(HTTP.get, url, Imgur.OAUTH_HEADERS(token))
 
         var onIdsReceived = function(json) {
             callback(json['data'])
@@ -208,27 +210,26 @@ Plugin {
 
     function getImageList(token) {
         getImagesIds(token, function(ids) {
-            for(var i = 0; i < ids.length; ++ i)
+            for(var i = ids.length - 1; i >= 0; -- i)
                 fetchThumbnail(token, ids[i])
         })
     }
 
     function fetchThumbnail(token, id) {
-        var reply = HTTP.get('http://i.imgur.com/' + id + Imgur.THUMBNAIL_SIZE_SUFFIX + '.jpg')
+        var request = Functional.bind(HTTP.get, 'http://i.imgur.com/' + id + Imgur.THUMBNAIL_SIZE_SUFFIX + '.jpg')
 
-        reply.finished.connect(function(status) {
-            if(status === 200)
-                uiConfig.thumbList.addImage({
-                    'imageData' : Encoding.base64(reply.rawData()),
-                    'imageId'   : id
-                })
-            else
-                onNetworkError(status, reply.json())
-        })
+        var onImageReceived = function(data) {
+            uiConfig.thumbList.addImage({
+                'imageData' : Encoding.base64(data),
+                'imageId'   : id
+            })
+        }
+
+        imgurAPICall(request, onImageReceived, true)
     }
 
     function imageLink(token, id, callback) {
-        var request = Imgur.bind(HTTP.get, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
+        var request = Functional.bind(HTTP.get, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
 
         imgurAPICall(request, function(json) {
             callback(json['data']['link'])
@@ -236,13 +237,12 @@ Plugin {
     }
 
     function deleteImage(token, id) {
-        var request = Imgur.bind(HTTP.del, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
+        var request = Functional.bind(HTTP.del, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
 
         imgurAPICall(request, function(json) {
-            if (json['success'] === true)
-                SystemTray.alert('Image successfully deleted', 'Plug-in Imgur : Success')
-            else
-                SystemTray.alert('Image could not be deleted', 'Plug-in Imgur : Error')
+            var message = json['is_deleted'] ? 'Image successfully deleted' : 'Image could not be deleted';
+            var title   = json['is_deleted'] ? 'Plug-in Imgur : Success' : 'Plug-in Imgur : Error';
+            SystemTray.alert(message, title)
         })
     }
 
@@ -250,27 +250,24 @@ Plugin {
         SystemTray.alert('Fetching file\nPlease wait', 'Plug-in Imgur : Fetching')
 
         imageLink(token, id, function(link) {
-            var reply = HTTP.get(link)
-            reply.finished.connect(function(status) {
-                if(status === 200)
-                    callback(reply.rawData())
-                else
-                    onNetworkError(status, reply.json())
-            })
+            var request = Functional.bind(HTTP.get, link)
+            imgurAPICall(request, callback, true)
         })
     }
 
-    function imgurAPICall(requestFunctor, successFunctor) {
+// Proxy API network function
+    function imgurAPICall(requestFunctor, successFunctor, rawData) {
         var reply = requestFunctor()
 
         reply.finished.connect(function(status) {
             if(status === 200)
-                successFunctor(reply.json())
+                successFunctor(rawData === undefined ? reply.json() : reply.rawData())
             else
                 onNetworkError(status, reply.json())
         })
     }
 
+// Error handling
     function onLocalServerError() {
         SystemTray.alert('Could not open a local HTTP server on ' + String(Imgur.REDIRECT_PORT), 'Plug-in Imgur : Network Error')
     }

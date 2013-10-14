@@ -77,7 +77,7 @@ RowLayout {
     }
 
     function addImage(imgData) {
-        model.append(imgData)
+        model.insert(0, imgData)
     }
 
     function removeImage(id) {

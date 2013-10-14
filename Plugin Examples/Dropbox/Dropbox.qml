@@ -8,7 +8,7 @@ Plugin {
     id : plugin
 
     name    : 'Dropbox'
-    version : '1.51'
+    version : '1.6'
     author  : 'Globinatif'
     icon    : Qt.resolvedUrl('Icon.png')
 
@@ -95,14 +95,16 @@ Plugin {
             if(data.hasImage()) {
                 var extension = configUi.loaded.fileExtension.currentText
                 var imageData = data.rawImageData(extension)
-                upload(imageData, 'Images', extension, 'image')
-            } else if(data.hasHtml()) {
+                upload(imageData, Dropbox.IMAGE_FOLDER, extension, Dropbox.IMAGE_TYPE)
+            } 
+            else if(data.hasHtml()) {
                 var htmlData = data.html()
-                upload(htmlData, 'HTML', 'html', 'HTML')
+                upload(htmlData, Dropbox.HTML_FOLDER, 'html', Dropbox.HTML_TYPE)
             }
         }
     }
 
+// OAuth 2.0 functions
     function withToken(func) {
         var accessToken = conf.value('access_token')
         accessToken == undefined ?
@@ -125,21 +127,19 @@ Plugin {
     }
 
     function retrieveToken(code, callback) {
-        var payload = Dropbox.tokenRequestParameters(code)
-        var reply   = HTTP.post(Dropbox.URL_TOKEN, {}, payload)
+        var request = Functional.bind(HTTP.post, Dropbox.URL_TOKEN, {},
+                                                 Dropbox.TOKEN_REQUEST_PAYLOAD(code))
 
-        reply.finished.connect(function(status) {
-            var json = reply.json()
+        var onTokenReceived = function(json) {
+            var accessToken = json['access_token']
+            conf.setValue('access_token', accessToken)
+            callback(accessToken)
+        }
 
-            if(status === 200) {
-                var accessToken = json['access_token']
-                conf.setValue('access_token', accessToken)
-                callback(accessToken)
-            } else
-                onNetworkError(status, json)
-        })
+        dropboxAPICall(request, onTokenReceived)
     }
 
+// API calls
     function upload(data, folder, fileExtension, fileType) {
         var baseName = Qt.formatDateTime(new Date, configUi.loaded.filenamePattern.text)
         var fileName = baseName + '.' + fileExtension
@@ -152,130 +152,119 @@ Plugin {
     }
 
     function uploadImpl(filePath, data, token) {
-        var headers = { 'Authorization' : 'Bearer ' + token } // no url-encoded here
-        var reply = HTTP.put(Dropbox.URL_UPLOAD + filePath, 
-                             headers, 
-                             data)
+        var request = Functional.bind(HTTP.put, Dropbox.UPLOAD_URL(filePath), 
+                                                Dropbox.OAUTH_HEADERS(token, true), 
+                                                data)
 
-        reply.finished.connect(function(status) {
-            if(status === 200) {
-                fileLinkToClipboard(filePath, token)
-                if(filePath.startsWith('Images'))
-                    getThumbnailForImage(token, filePath, true)
-            } else
-                onNetworkError(status, reply.json())
-        })
+        var onUploaded = function() {
+            fileLinkToClipboard(filePath, token)
+            if(filePath.startsWith('Images'))
+                getThumbnailForImage(token, filePath, new Date)
+        }
+
+        dropboxAPICall(request, onUploaded)
     }
 
     function fileLinkToClipboard(filePath, token, upload) {
         var withPreview = configUi.loaded.previewUrls.checked
-        var payload     = withPreview ? { 'short_url' : configUi.loaded.shortUrls.checked } : {}
-        var reply       = HTTP.post(Dropbox.linkUrl(withPreview) + filePath,
-                                    Dropbox.OAuthHeaders(token),
-                                    payload)
+        var shortUrls   = configUi.loaded.shortUrls.checked
+        var request     = Functional.bind(HTTP.post, Dropbox.LINK_URL(withPreview, filePath),
+                                                     Dropbox.OAUTH_HEADERS(token),
+                                                     Dropbox.LINK_PAYLOAD(withPreview, shortUrls))
 
-        reply.finished.connect(function(status) {
-            var json = reply.json()
+        var onLinkReceived = function(json) {
+            clipboard.setText(json['url'])
+            var text = (upload ? 'File successfully uploaded\n' : '') + 'Link is ready\n' + 'Expires : ' + json['expires']
+            SystemTray.alert(text, 'Plug-in Dropbox : Success')
+        }
 
-            if (status === 200) {
-                clipboard.setText(json['url'])
-                var text = (upload ? 'File successfully uploaded\n' : '') + 'Link is ready\n' + 'Expires : ' + json['expires']
-                SystemTray.alert(text, 'Plug-in Dropbox : Success')
-            } else
-                onNetworkError(status, json)
-        })
+        dropboxAPICall(request, onLinkReceived)
     }
 
     function getAccountInfo(token) {
-        var reply = HTTP.get(Dropbox.URL_ACCOUNT_INFO, 
-                             Dropbox.OAuthHeaders(token))
+        var request = Functional.bind(HTTP.get, Dropbox.URL_ACCOUNT_INFO, 
+                                                Dropbox.OAUTH_HEADERS(token))
 
-        reply.finished.connect(function(status) {
-            var json = reply.json()
+        var onInfoReceived = function(json) {
+            configUi.loaded.userName.text = json['display_name']
+            configUi.loaded.userUid.text  = json['uid']
 
-            if(status === 200) {
-                configUi.loaded.userName.text = json['display_name']
-                configUi.loaded.userUid.text  = json['uid']
+            var bytesInfo = function(value) { 
+                return Dropbox.bytesToHumanReadable(json['quota_info'][value]) 
+            }
+            configUi.loaded.shared.text = bytesInfo('shared')
+            configUi.loaded.quota.text  = bytesInfo('quota')
+            configUi.loaded.normal.text = bytesInfo('normal')
+        }
 
-                var bytesInfo = function(value) { 
-                    return Dropbox.bytesToHumanReadable(json['quota_info'][value]) 
-                }
-                configUi.loaded.shared.text = bytesInfo('shared')
-                configUi.loaded.quota.text  = bytesInfo('quota')
-                configUi.loaded.normal.text = bytesInfo('normal')
-            } else
-                onNetworkError(status, json)
-        })
+        dropboxAPICall(request, onInfoReceived)
     }
 
     function getImageList(token) {
-        var reply = HTTP.get(Dropbox.URL_METADATA_BASE + '/Images', 
-                             Dropbox.OAuthHeaders(token))
+        var request = Functional.bind(HTTP.get, Dropbox.URL_METADATA_IMAGES, 
+                                                Dropbox.OAUTH_HEADERS(token))
 
-        reply.finished.connect(function(status) {
-            var json = reply.json()
-
-            if(status === 200) {
-                var contents = json['contents']
-                for(var i = 0; i < contents.length; ++ i) {
-                    if(contents[i]['mime_type'].startsWith('image')) {
-                        getThumbnailForImage(token, contents[i]['path'])
-                    }
+        var onMetaDataReceived = function(json) {
+            var contents = json['contents']
+            for(var i = contents.length - 1; i >= 0; -- i) {
+                if(contents[i]['mime_type'].startsWith('image')) {
+                    getThumbnailForImage(token, contents[i]['path'], contents[i]['modified'])
                 }
-            } else
-                onNetworkError(status, json)
-        })
+            }
+        }
+
+        dropboxAPICall(request, onMetaDataReceived)
     }
 
-    function getThumbnailForImage(token, path) {
-        var payload  = { 'size' : 'm' }
-        var thumbUrl = HTTP.url(Dropbox.URL_THUMBNAIL_BASE + path, payload)
-        var reply    = HTTP.get(thumbUrl, Dropbox.OAuthHeaders(token))
+    function getThumbnailForImage(token, path, date) {
+        var thumbUrl = HTTP.url(Dropbox.THUMBNAIL_URL(path), Dropbox.THUMBNAIL_PAYLOAD)
+        var request  = Functional.bind(HTTP.get, thumbUrl, Dropbox.OAUTH_HEADERS(token))
 
-        reply.finished.connect(function(status) {
-            if(status === 200) {
-                configUi.thumbList.addImage({
-                    'imageData' : Encoding.base64(reply.rawData()),
-                    'imagePath' : path
-                })
-            } else
-                onNetworkError(status, reply.json())
-        })
+        var onThumbnailReceived = function(data) {
+            configUi.thumbList.addImage({
+                'imageData' : Encoding.base64(data),
+                'imagePath' : path,
+                'imageDate' : new Date(date)
+            })
+        };
+
+        dropboxAPICall(request, onThumbnailReceived, true)
     }
 
     function getFile(filePath, token, callback) {
-        var reply = HTTP.get(Dropbox.URL_FILE_GET + filePath, Dropbox.OAuthHeaders(token))
+        var request = Functional.bind(HTTP.get, Dropbox.GET_FILE_URL(filePath), 
+                                                Dropbox.OAUTH_HEADERS(token))
         SystemTray.alert('Fetching file\nPlease wait', 'Plug-in Dropbox : Fetching')
-
-        reply.finished.connect(function(status) {
-            if(status === 200)
-                callback(reply.rawData())
-            else
-                onNetworkError(status, reply.json())
-        })
+        dropboxAPICall(request, callback, true)
     }
 
     function deleteFile(filePath, token) {
-        var payload = {
-            'root' : 'sandbox',
-            'path' : filePath
+        var request = Functional.bind(HTTP.post, Dropbox.URL_DELETE_FILE,
+                                                 Dropbox.OAUTH_HEADERS(token),
+                                                 Dropbox.DELETE_FILE_PAYLOAD(filePath))
+
+        var onResponse = function(json) {
+            var message = json['is_deleted'] ? 'File successfully deleted' : 'File could not be deleted';
+            var title   = json['is_deleted'] ? 'Plug-in Dropbox : Success' : 'Plug-in Dropbox : Error';
+            SystemTray.alert(message, title)
         }
-        var reply    = HTTP.post(Dropbox.URL_DELETE_FILE, 
-                                 Dropbox.OAuthHeaders(token), 
-                                 payload)
+        
+        dropboxAPICall(request, onResponse)
+    }
+
+// Proxy API network function
+    function dropboxAPICall(requestFunctor, successFunctor, rawData) {
+        var reply = requestFunctor()
+
         reply.finished.connect(function(status) {
             if(status === 200)
-            {
-                if (reply.json()['is_deleted'] === true)
-                    SystemTray.alert('File successfully deleted', 'Plug-in Dropbox : Success')
-                else
-                    SystemTray.alert('File could not be deleted', 'Plug-in Dropbox : Error')
-            }
+                successFunctor(rawData === undefined ? reply.json() : reply.rawData())
             else
                 onNetworkError(status, reply.json())
         })
     }
 
+// Error handling
     function onLocalServerError() {
         SystemTray.alert('Could not open a local HTTP server on ' + String(Dropbox.REDIRECT_PORT), 'Plug-in Dropbox : Network Error')
     }
