@@ -21,10 +21,19 @@
 #include "Network/NetworkHTTPReply.h"
 #include "Network/LocalHTTPServer.h"
 
+#include "Core/RemoteClipboard.h"
+
+#if defined RELEASE_CONSOLE || defined _DEBUG
+ #define QT_QML_DEBUG
+#endif
+
 int main(int argc, char *argv[])
 {
     qRegisterMetaTypeStreamOperators<Shortcut>();
 
+#if defined RELEASE_CONSOLE || defined _DEBUG
+    QQmlDebuggingEnabler debuggingEnabler;
+#endif
     QMLEnvironment::registerComponents <
         // QML Components
         QMLPlugin, QMLUi, QMLClipboard, QMLSettings,
