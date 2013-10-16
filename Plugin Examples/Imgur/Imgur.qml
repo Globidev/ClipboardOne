@@ -161,6 +161,8 @@ Plugin {
         var onSuccess = function(json) {
             clipboard.setText(json['data']['link'])
             SystemTray.alert('Image successfully uploaded\nLink is ready', 'Plug-in Imgur : Success')
+            getUserStats(token)
+            fetchThumbnail(token, json['data']['id'])
         }
 
         imgurAPICall(request, onSuccess)
@@ -210,29 +212,34 @@ Plugin {
 
     function getImageList(token) {
         getImagesIds(token, function(ids) {
-            for(var i = ids.length - 1; i >= 0; -- i)
+            for(var i = 0; i < ids.length; ++ i)
                 fetchThumbnail(token, ids[i])
         })
     }
 
     function fetchThumbnail(token, id) {
-        var request = Functional.bind(HTTP.get, 'http://i.imgur.com/' + id + Imgur.THUMBNAIL_SIZE_SUFFIX + '.jpg')
+        var doFetch = function(imageInfo) {
+            var request = Functional.bind(HTTP.get, Imgur.THUMBNAIL_URL(imageInfo['link']))
 
-        var onImageReceived = function(data) {
-            uiConfig.thumbList.addImage({
-                'imageData' : Encoding.base64(data),
-                'imageId'   : id
-            })
+            var onImageReceived = function(data) {
+                uiConfig.thumbList.addImage({
+                    'imageData' : Encoding.base64(data),
+                    'imageId'   : id,
+                    'imageDate' : imageInfo['datetime']
+                })
+            }
+
+            imgurAPICall(request, onImageReceived, true)
         }
 
-        imgurAPICall(request, onImageReceived, true)
+        getImageInfo(token, id, doFetch)
     }
 
-    function imageLink(token, id, callback) {
+    function getImageInfo(token, id, callback) {
         var request = Functional.bind(HTTP.get, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
 
         imgurAPICall(request, function(json) {
-            callback(json['data']['link'])
+            callback(json['data'])
         })
     }
 
@@ -240,17 +247,18 @@ Plugin {
         var request = Functional.bind(HTTP.del, Imgur.IMAGE_URL(id), Imgur.OAUTH_HEADERS(token))
 
         imgurAPICall(request, function(json) {
-            var message = json['is_deleted'] ? 'Image successfully deleted' : 'Image could not be deleted';
-            var title   = json['is_deleted'] ? 'Plug-in Imgur : Success' : 'Plug-in Imgur : Error';
+            var message = json['success'] ? 'Image successfully deleted' : 'Image could not be deleted';
+            var title   = json['success'] ? 'Plug-in Imgur : Success' : 'Plug-in Imgur : Error';
             SystemTray.alert(message, title)
+            getUserStats(token)
         })
     }
 
     function getImage(token, id, callback) {
         SystemTray.alert('Fetching file\nPlease wait', 'Plug-in Imgur : Fetching')
 
-        imageLink(token, id, function(link) {
-            var request = Functional.bind(HTTP.get, link)
+        getImageInfo(token, id, function(info) {
+            var request = Functional.bind(HTTP.get, info['link'])
             imgurAPICall(request, callback, true)
         })
     }

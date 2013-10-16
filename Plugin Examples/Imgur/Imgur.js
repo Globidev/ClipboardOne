@@ -14,7 +14,7 @@ var STATS_SUFFIX = '/stats';
 var IMAGE_IDS_SUFFIX = '/images/ids';
 var IMAGE_COUNT_SUFFIX = '/images/count';
 
-var THUMBNAIL_SIZE_SUFFIX = 't' // https://api.imgur.com/models/image
+var THUMBNAIL_SIZE_SUFFIX = 't'; // https://api.imgur.com/models/image
 
 var OAUTH_HEADERS = function(token) {
     return {
@@ -55,15 +55,20 @@ var ACCOUNT_IMAGES_COUNT_URL = function(username) {
 
 var ACCOUNT_IMAGES_IDS_URL = function(username, page) {
     var query = {
-        'perPage' : '25',
+        'perPage' : '50',
         'page'    : String(page)
     };
     return HTTP.url(ACCOUNT_INFO_URL(username) + IMAGE_IDS_SUFFIX, query);
 };
 
 var IMAGE_URL = function(id) {
-    return IMAGE_BASE_URL + id
+    return IMAGE_BASE_URL + id;
 }
+
+var THUMBNAIL_URL = function(link) {
+    var insertIndex = link.lastIndexOf('.');
+    return link.slice(0, insertIndex) + THUMBNAIL_SIZE_SUFFIX + link.slice(insertIndex);
+};
 
 var DAY_DURATION = 24 * 60 * 60 * 1000;
 
