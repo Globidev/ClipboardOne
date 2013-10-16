@@ -1,14 +1,29 @@
+.import "urllib.js" as Urllib
+
+var YOUTUBE_DOMAIN = 'youtube.com';
+var YOUTU_BE_DOMAIN = 'youtu.be';
+var QUERY_VIDEO_KEY = 'v';
+var QUERY_PLAYLIST_KEY ='list';
+
 function isVideo(url) {
-    // from http://stackoverflow.com/a/2257257/1592289
-    return url.match(/https?:\/\/(?:[a-zA_Z]{2,3}.)?(?:youtube\.com\/watch\?)((?:[\w\d\-\_\=]+&amp;(?:amp;)?)*v(?:&lt;[A-Z]+&gt;)?=([0-9a-zA-Z\-\_]+))/i);
+    var parsedUrl = Urllib.URL(url);
+    if (parsedUrl.domain() === YOUTU_BE_DOMAIN)
+        return true;
+    var isYoutubeUrl = parsedUrl.domain() === YOUTUBE_DOMAIN;
+    var query = parsedUrl.query();
+    return (isYoutubeUrl && query[QUERY_VIDEO_KEY]);
 }
 
-function shortenLink(youtubeUrl) { // TODO : Add list check with deny possibility
-    var video_id = youtubeUrl.split('v=')[1];
-    var ampersandPosition = video_id.indexOf('&');
-    if(ampersandPosition != -1)
-        video_id = video_id.substring(0, ampersandPosition);
-    return 'http://youtu.be/' + video_id;
+function shortenLink(youtubeUrl) { 
+    var parsedUrl = Urllib.URL(youtubeUrl);
+    var query = parsedUrl.query();
+    return 'http://youtu.be/' + query[QUERY_VIDEO_KEY];
+}
+
+function isPlayList(youtubeUrl) {
+    var parsedUrl = Urllib.URL(youtubeUrl);
+    var query = parsedUrl.query();
+    return (query[QUERY_PLAYLIST_KEY] !== undefined);
 }
 
 String.prototype.toBool = function() {
