@@ -92,6 +92,12 @@
     <Filter Include="Source Files\GUI\OptionDialog">
       <UniqueIdentifier>{98b7298b-88b2-428c-8e7b-109e46f1c95d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI\Styles">
+      <UniqueIdentifier>{cf22e57f-c93b-4b2f-a2ff-120cf1080f15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\Styles">
+      <UniqueIdentifier>{1b804374-981f-4ae5-bbdc-9cbf5d31b817}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -448,6 +454,30 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_ClipboardWatcher.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="Core\RemoteClipboard.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Redis\AsyncRedisClient.cpp">
+      <Filter>Source Files\Core\Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Functional.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Functional.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Functional.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_Functional.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Styles\Win32GlassWidget.cpp">
+      <Filter>Source Files\GUI\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_StyleSheets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -506,6 +536,15 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_OptionDialog.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\RemoteClipboard.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Redis\AsyncRedisClient.h">
+      <Filter>Header Files\Core\Redis</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Styles\GlassWidget.h">
+      <Filter>Header Files\GUI\Styles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -612,6 +651,12 @@
     </CustomBuild>
     <CustomBuild Include="GUI\Designer\OptionDialog.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Core\Functional.h">
+      <Filter>Header Files\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="StyleSheets.qrc">
+      <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

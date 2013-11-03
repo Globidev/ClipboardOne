@@ -103,6 +103,14 @@ static void forceShowWindow(QWidget * window)
     window->activateWindow();
 }
 
+    // Quick reader function
+static QString fromResource(const QString & resourceName)
+{
+    QFile resource(resourceName);
+    resource.open(QIODevice::ReadOnly);
+    return resource.readAll();
+}
+
     // Generic synchronous function
 template <
     class AsyncWorkerSignal,

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Transparent">
+        <file alias="TableView">GUI/Styles/TransparentTableView.stylesheet</file>
+        <file alias="Widget">GUI/Styles/TransparentWidget.stylesheet</file>
+    </qresource>
+</RCC>

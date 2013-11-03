@@ -12,7 +12,7 @@ Logger & Logger::instance()
     return logger;
 }
 
-Logger::Logger() : QWidget(),
+Logger::Logger() : GlassWidget(),
     ui_(new Ui::UiLogger),
     table_(new LoggerTable(this))
 {

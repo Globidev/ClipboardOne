@@ -17,6 +17,9 @@ LoggerTable::LoggerTable(QWidget * parent) : QTableView(parent),
 
     setModel(model_.get());
     setItemDelegate(delegate_.get());
+
+    setStyleSheet(fromResource(":/Transparent/TableView"));
+    setShowGrid(false);
 }
 
 LoggerModel * LoggerTable::model() const

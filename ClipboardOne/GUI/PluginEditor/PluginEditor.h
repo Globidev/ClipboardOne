@@ -2,11 +2,12 @@
 #define PLUGINEDITOR_H
 
 #include "ui_PluginEditor.h"
+#include "../GUI/Styles/GlassWidget.h"
 
 class PluginTable;
 class AddPluginDialog;
 
-class PluginEditor : public QWidget
+class PluginEditor : public GlassWidget
 {
     Q_OBJECT
 

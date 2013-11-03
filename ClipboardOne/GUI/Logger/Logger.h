@@ -3,10 +3,11 @@
 
 #include "ui_Logger.h"
 #include "LogEntry.h"
+#include "../GUI/Styles/GlassWidget.h"
 
 class LoggerTable;
 
-class Logger : public QWidget, boost::noncopyable
+class Logger : public GlassWidget, boost::noncopyable
 {
     Q_OBJECT
 

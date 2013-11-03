@@ -20,6 +20,9 @@ PluginTable::PluginTable(QWidget * parent) : QTableView(parent),
 
     QObject::connect(model_.get(), &QAbstractItemModel::rowsInserted,
         [this](const QModelIndex &, int start, int end) { updateRow(start); });
+
+    setStyleSheet(fromResource(":/Transparent/TableView"));
+    setShowGrid(false);
 }
 
 void PluginTable::updateRow(int row)

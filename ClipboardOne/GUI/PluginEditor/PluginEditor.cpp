@@ -9,7 +9,7 @@
 
 #include "QML/QMLEnvironment.h"
 
-PluginEditor::PluginEditor(QWidget * parent) : QWidget(parent),
+PluginEditor::PluginEditor(QWidget * parent) : GlassWidget(parent),
     ui_(new Ui::UiPluginEditor),
     pluginTable_(new PluginTable(this))
 {

@@ -1,0 +1,18 @@
+QTableView {
+    background:transparent;
+    color:white;
+}
+
+QTableCornerButton::section {
+    background:transparent;
+}
+
+QHeaderView {
+    background:transparent;
+    color:white;
+}
+
+QHeaderView::section {
+    background:transparent;
+    color:white;
+}

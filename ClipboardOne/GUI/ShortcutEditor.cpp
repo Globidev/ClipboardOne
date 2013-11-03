@@ -129,6 +129,8 @@ ShortcutEditor::ShortcutEditor(QMLPlugin * plugin,
     QObject::connect(plugin, &QMLPlugin::activableChanged,
                      this, &ShortcutEditor::onActivableChanged);
     onActivableChanged(plugin->activable());
+
+    setStyleSheet(fromResource(":/Transparent/Widget"));
 }
 
 Shortcut ShortcutEditor::shortcut() const
