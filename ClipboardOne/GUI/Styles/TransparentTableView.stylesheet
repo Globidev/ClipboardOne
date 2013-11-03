@@ -1,6 +1,7 @@
 QTableView {
     background:transparent;
     color:white;
+    border:0px;
 }
 
 QTableCornerButton::section {
