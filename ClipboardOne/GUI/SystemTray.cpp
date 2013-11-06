@@ -69,7 +69,7 @@ void SystemTray::unbindMessageClicked()
 
 void SystemTray::bindMessageClicked(QJSValue & slot)
 {
-    if(!IS_CALLABLE_WITH_ARITY(slot, 0))
+    if(!jsIsCallableWithArity(slot, 0))
         Logger::log(SYSTEM_TRAY_ON_MESSAGE_CLICKED_PARAMETER_ERROR, 
                     LogEntry::Type::Error, LogEntry::Scope::Plugin);
     else

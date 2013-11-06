@@ -40,11 +40,7 @@ void OptionDialog::onStartupToggled(bool checked)
     if(!checked)
         args << "/r";
     args << QDir::toNativeSeparators(QApplication::applicationFilePath());
-#ifdef Q_OS_WIN
     startProcessElevated("startup", args);
-#else
-    QProcess::startDetached("startup", args);
-#endif
 }
 
 void OptionDialog::onIconColorChanged()

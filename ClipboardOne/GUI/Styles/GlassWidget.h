@@ -1,11 +1,11 @@
 #ifndef GLASSWIDGET_H
 #define GLASSWIDGET_H
 
-#ifdef WIN32 
+#if defined WIN32 && GLASS_EFFECT
  #include <Dwmapi.h>
 
 static const MARGINS NO_MARGINS = { -1 };
-static const DWM_BLURBEHIND BLUR_BIHIND = {
+static const DWM_BLURBEHIND BLUR_BEHIND = {
     DWM_BB_ENABLE,
     true,
     nullptr,
@@ -27,6 +27,23 @@ class GlassWidget : public QWidget
     private :
         QPoint lastPosition_;
         bool shouldMove_;
+};
+
+class GlassWidgetEventFilter : public QAbstractNativeEventFilter
+{
+protected :
+    virtual bool nativeEventFilter(const QByteArray &, void * data, long * result)
+    {
+        auto msg = static_cast<MSG *>(data);
+        
+        if (msg->message == WM_ACTIVATE)
+        {
+            DwmExtendFrameIntoClientArea(msg->hwnd, &NO_MARGINS);
+            *result = 0;
+            return true;
+        }
+        return false;
+    }
 };
 
 #else

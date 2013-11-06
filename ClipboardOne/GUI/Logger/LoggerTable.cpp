@@ -18,8 +18,10 @@ LoggerTable::LoggerTable(QWidget * parent) : QTableView(parent),
     setModel(model_.get());
     setItemDelegate(delegate_.get());
 
+#ifdef GLASS_EFFECT
     setStyleSheet(fromResource(":/Transparent/TableView"));
     setShowGrid(false);
+#endif
 }
 
 LoggerModel * LoggerTable::model() const

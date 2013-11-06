@@ -96,20 +96,13 @@ QVariantMap pairListToMap(const QList<QPair<QString, Value>> & list)
 }
 
     // Force window to be displayed
-static void forceShowWindow(QWidget * window)
-{
-    window->show();
-    window->setWindowState(window->windowState() & ~Qt::WindowMinimized | Qt::WindowActive);
-    window->activateWindow();
-}
+void forceShowWindow(QWidget * window);
 
     // Quick reader function
-static QString fromResource(const QString & resourceName)
-{
-    QFile resource(resourceName);
-    resource.open(QIODevice::ReadOnly);
-    return resource.readAll();
-}
+QString fromResource(const QString & resourceName);
+
+    // Start processes with administration rights
+void startProcessElevated(const QString & program, const QStringList & args);
 
     // Generic synchronous function
 template <
@@ -147,7 +140,7 @@ typename std::enable_if< // Worker must inherit QObject and be a pointer
 }
 
 // Type traits
-
+    // Compile time singleton tester
 template<class Type>
 class is_singleton
 {
@@ -174,22 +167,11 @@ class is_singleton
         Constant value = HasInstance::value;
 };
 
-#ifdef Q_OS_WIN
-static int startProcessElevated(const QString & program, const QStringList & args)
-{
-    return (int)::ShellExecuteA(0, "runas", program.toUtf8().constData(), 
-                                args.join(" ").toUtf8().constData(), 0, SW_HIDE);
-}
-#endif
+// Javascript tools
+    // Object inspection
+bool jsIsCallableWithArity(const QJSValue & function, int arity);
 
-// JS bindings
-
-Constant IS_CALLABLE_WITH_ARITY = [](const QJSValue & function, int arity)
-{
-    return function.isCallable() && 
-           function.property("length").toInt() == arity;
-};
-
+    // Functional bind
 template <class ... Args>
 static QJSValue jsBind(const QJSValue & func, const Args & ... args)
 {
@@ -202,19 +184,23 @@ template <class ... Ts>
 static QJSValueList jsMakeValueList(const Ts & ... values)
 {
     QJSValueList list;
-    fillJsList(list, values ...);
+    _fillJsList(list, values ...);
     return list;
 }
 
 template <class T1, class T2, class ... Ts>
-static void fillJsList(QJSValueList & list, const T1 & v1, const T2 & v2, const Ts & ... vs)
+static void _fillJsList(QJSValueList & list, const T1 & v1, const T2 & v2, const Ts & ... vs)
 {
     list << v1;
-    fillJsList(list, v2, vs ...);
+    _fillJsList(list, v2, vs ...);
 }
 
 template <class T>
-static void fillJsList(QJSValueList & list, const T & v)
+static void _fillJsList(QJSValueList & list, const T & v)
 {
     list << v;
 }
+
+// Styles
+    // Glass effect (currently working for Windows 7 only)
+//#define GLASS_EFFECT

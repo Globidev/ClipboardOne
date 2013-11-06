@@ -130,7 +130,9 @@ ShortcutEditor::ShortcutEditor(QMLPlugin * plugin,
                      this, &ShortcutEditor::onActivableChanged);
     onActivableChanged(plugin->activable());
 
+#ifdef GLASS_EFFECT
     setStyleSheet(fromResource(":/Transparent/Widget"));
+#endif
 }
 
 Shortcut ShortcutEditor::shortcut() const

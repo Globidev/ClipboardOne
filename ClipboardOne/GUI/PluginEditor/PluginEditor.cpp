@@ -12,6 +12,9 @@
 PluginEditor::PluginEditor(QWidget * parent) : GlassWidget(parent),
     ui_(new Ui::UiPluginEditor),
     pluginTable_(new PluginTable(this))
+#ifdef WIN32
+    ,resizeOnce_(true)
+#endif
 {
     ui_->setupUi(this);
     ui_->verticalLayout->addWidget(pluginTable_.get());
@@ -65,3 +68,15 @@ void PluginEditor::dropEvent(QDropEvent * event)
             QMLEnvironment::addPlugin(url);
     event->acceptProposedAction();
 }
+
+#ifdef WIN32
+void PluginEditor::showEvent(QShowEvent * event)
+{
+    if (resizeOnce_)
+    {
+        resize(800, height());
+        resizeOnce_ = false;
+    }
+    GlassWidget::showEvent(event);
+}
+#endif

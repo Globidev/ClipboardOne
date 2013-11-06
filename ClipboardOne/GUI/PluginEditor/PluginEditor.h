@@ -20,6 +20,10 @@ class PluginEditor : public GlassWidget
     protected :
         virtual void dragEnterEvent(QDragEnterEvent *);
         virtual void dropEvent(QDropEvent *);
+#ifdef WIN32
+        virtual void showEvent(QShowEvent *);
+        bool resizeOnce_;
+#endif
 
     private :
         Q_SLOT void updateIcons();

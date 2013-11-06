@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "GlassWidget.h"
 
+#if defined WIN32 && GLASS_EFFECT
 GlassWidget::GlassWidget(QWidget * parent) : QWidget(parent), 
     shouldMove_(false)
 {
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_NoSystemBackground);
 
-    DwmEnableBlurBehindWindow((HWND)winId(), &BLUR_BIHIND);
+    DwmEnableBlurBehindWindow((HWND)winId(), &BLUR_BEHIND);
 }
 
 bool GlassWidget::nativeEvent(const QByteArray &, void * data, long * result)
@@ -47,3 +48,5 @@ void GlassWidget::mouseMoveEvent(QMouseEvent * event)
     else
         QWidget::mouseMoveEvent(event);
 }
+
+#endif // WIN32 && GLASS_EFFECT
