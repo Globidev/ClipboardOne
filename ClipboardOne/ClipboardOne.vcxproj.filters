@@ -98,6 +98,11 @@
     <Filter Include="Source Files\GUI\Styles">
       <UniqueIdentifier>{1b804374-981f-4ae5-bbdc-9cbf5d31b817}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Generated Files\Release no aero">
+      <UniqueIdentifier>{6242172e-cc8d-41df-a1f3-3f72584ef00f}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,6 +225,21 @@
     <ClCompile Include="GUI\OptionDialog\OptionDialog.cpp">
       <Filter>Source Files\GUI\OptionDialog</Filter>
     </ClCompile>
+    <ClCompile Include="Core\RemoteClipboard.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Redis\AsyncRedisClient.cpp">
+      <Filter>Source Files\Core\Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Functional.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Styles\Win32GlassWidget.cpp">
+      <Filter>Source Files\GUI\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_StyleSheets.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_SystemTray.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -228,6 +248,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_SystemTray.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_SystemTray.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ShortcutEditor.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -238,6 +261,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_ShortcutEditor.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_ShortcutEditor.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_RemovePluginDialog.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -246,6 +272,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_RemovePluginDialog.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_RemovePluginDialog.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QMLUiTools.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -256,6 +285,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_QMLUiTools.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_QMLUiTools.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QMLUi.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -264,6 +296,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_QMLUi.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_QMLUi.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QMLSettings.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -274,6 +309,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_QMLSettings.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_QMLSettings.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QMLPlugin.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -282,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_QMLPlugin.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_QMLPlugin.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QMLEnvironment.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -292,6 +333,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_QMLEnvironment.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_QMLEnvironment.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_QMLClipboard.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -300,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_QMLClipboard.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_QMLClipboard.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ProcessManager.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -310,6 +357,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_ProcessManager.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_ProcessManager.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_PluginTableModel.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -318,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_PluginTableModel.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_PluginTableModel.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_PluginEditor.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -328,6 +381,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_PluginEditor.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_PluginEditor.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_PluginActionWidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -336,6 +392,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_PluginActionWidget.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_PluginActionWidget.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_NetworkHTTPRequest.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -346,6 +405,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_NetworkHTTPRequest.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_NetworkHTTPRequest.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_NetworkHTTPReply.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -354,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_NetworkHTTPReply.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_NetworkHTTPReply.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_NetworkAccessManager.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -364,6 +429,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_NetworkAccessManager.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_NetworkAccessManager.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_MimeDataEntry.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -372,6 +440,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_MimeDataEntry.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_MimeDataEntry.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_Logger.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -382,6 +453,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_Logger.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_Logger.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_LocalHTTPServer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -390,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_LocalHTTPServer.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_LocalHTTPServer.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_KeyLogger.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -400,6 +477,9 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_KeyLogger.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_KeyLogger.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ImageLoader.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -408,6 +488,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release console\moc_ImageLoader.cpp">
       <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_ImageLoader.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GlobiSingleApplication.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -418,50 +501,8 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_GlobiSingleApplication.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Encoding.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Encoding.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release console\moc_Encoding.cpp">
-      <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_DynamicSvgItem.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DynamicSvgItem.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release console\moc_DynamicSvgItem.cpp">
-      <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_DynamicImageEngine.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DynamicImageEngine.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release console\moc_DynamicImageEngine.cpp">
-      <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ClipboardWatcher.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ClipboardWatcher.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release console\moc_ClipboardWatcher.cpp">
-      <Filter>Generated Files\Release console</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\RemoteClipboard.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Redis\AsyncRedisClient.cpp">
-      <Filter>Source Files\Core\Redis</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Functional.cpp">
-      <Filter>Source Files\Core</Filter>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_GlobiSingleApplication.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_Functional.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -472,11 +513,56 @@
     <ClCompile Include="GeneratedFiles\Release console\moc_Functional.cpp">
       <Filter>Generated Files\Release console</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\Styles\Win32GlassWidget.cpp">
-      <Filter>Source Files\GUI\Styles</Filter>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_Functional.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_StyleSheets.cpp">
-      <Filter>Generated Files</Filter>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Encoding.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Encoding.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_Encoding.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_Encoding.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DynamicSvgItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DynamicSvgItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_DynamicSvgItem.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_DynamicSvgItem.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DynamicImageEngine.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DynamicImageEngine.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_DynamicImageEngine.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_DynamicImageEngine.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ClipboardWatcher.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ClipboardWatcher.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release console\moc_ClipboardWatcher.cpp">
+      <Filter>Generated Files\Release console</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release no aero\moc_ClipboardWatcher.cpp">
+      <Filter>Generated Files\Release no aero</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
