@@ -29,6 +29,7 @@
 
 int main(int argc, char *argv[])
 {
+    // Pre initialisation
     qRegisterMetaTypeStreamOperators<Shortcut>();
 
 #if defined RELEASE_CONSOLE || defined _DEBUG
@@ -43,19 +44,31 @@ int main(int argc, char *argv[])
         MimeDataEntry, LocalHTTPServer, NetworkHTTPRequest, NetworkHTTPReply
     >();
 
+    // Single application management
     GlobiSingleApplication app(argc, argv, APPLICATION_NAME);
     app.setQuitOnLastWindowClosed(false);
+    if(!app.isAlreadyRunning())
+    {
+        QObject::connect(&app, &GlobiSingleApplication::messageRceived, [](const QString & message) {
+            SystemTray::instance().alert(message, APPLICATION_ALREADY_RUNNING_TITLE);       
+        });
+    
+        // Component initialisation
+        RedisServer::command(REDIS_FLUSHDB_COMMAND);
+        SystemTray::instance().show();
+        ClipboardWatcher::instance();
 
-    RedisServer::command(REDIS_FLUSHDB_COMMAND);
-    SystemTray::instance().show();
-    ClipboardWatcher::instance();
+        // Load settings
+        auto color = Settings::value<QColor>("mask_color", "Ui", Qt::black); // initial color
+        DynamicImageEngine::setMaskColor(color);
 
-    auto color = Settings::value<QColor>("mask_color", "Ui", Qt::black); // initial color
-    DynamicImageEngine::setMaskColor(color);
+        for(auto & pluginUrl : Settings::value<QStringList>("urls", "Plug-ins"))
+            QMLEnvironment::addPlugin(QUrl(pluginUrl));
 
-    for(auto & pluginUrl : Settings::value<QStringList>("urls", "Plug-ins"))
-        QMLEnvironment::addPlugin(QUrl(pluginUrl));
+        app.exec();
+    }
+    else
+        app.sendMessage(APPLICATION_ALREADY_RUNNING_NOTIFICATION);
 
-    app.exec();
     return 0;
 }

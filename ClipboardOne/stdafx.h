@@ -44,6 +44,8 @@ using namespace std::placeholders;
 
 // Application-wide constants
 Constant APPLICATION_NAME = "PowerClipboard";
+Constant APPLICATION_ALREADY_RUNNING_NOTIFICATION = "The application is already running";
+Constant APPLICATION_ALREADY_RUNNING_TITLE = "Woops";
 
 Constant LOCALHOST_IP = "127.0.0.1";
 
@@ -200,7 +202,3 @@ static void _fillJsList(QJSValueList & list, const T & v)
 {
     list << v;
 }
-
-// Styles
-    // Glass effect (currently working for Windows 7 only)
-//#define GLASS_EFFECT
